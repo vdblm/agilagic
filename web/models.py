@@ -5,20 +5,33 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
-class Admin(User):
+class CustomerManager(models.Manager):
+    @staticmethod
+    def sign_up_customer(username, email, password):
+        # this methods adds a user to the database if the username is not taken
+        exists = CustomerManager.check_existence(username)
+        if not exists:
+            Customer.objects.create_user(username, email, password)
+            return 'Sign up completed successfully'
+        else:
+            return 'The username is used'
+
+    @staticmethod
+    def check_existence(username):
+        # this method checks if the username exists in the database
+        return Customer.objects.filter(username=username).exists()
+
+
+class SellerManager(models.Manager):
     pass
 
 
-class CustomerManager(models.Manager):
-    def sign_customer(self):
-        pass
-
-
 class Customer(User):
-    customers = models.Manager()
+    pass
 
 
 class Seller(User):
+    is_Admin = models.BooleanField
     credit = models.BigIntegerField()
 
 
