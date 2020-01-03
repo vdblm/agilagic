@@ -9,13 +9,8 @@ class Admin(User):
     pass
 
 
-class CustomerManager(models.Manager):
-    def sign_customer(self):
-        pass
-
-
 class Customer(User):
-    customers = models.Manager()
+    pass
 
 
 class Seller(User):
