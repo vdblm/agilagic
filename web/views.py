@@ -30,3 +30,10 @@ def sign_in(request):
     # the login form is provided for the user
     form = SignInForm()
     return render(request, 'web/SignIn.html', {'form': form})
+
+
+@csrf_exempt
+def sign_in_do(request):
+    # TODO : check email and password if it exists in the database
+    email, password = request.POST['email'], request.POST['password']
+    return HttpResponse(request.POST['email'])
