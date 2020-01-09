@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate, login
 from django.db import models
 
 # Create your models here.
@@ -5,13 +6,14 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
-class CustomerManager(models.Manager):
+class UserManager(models.Manager):
     @staticmethod
-    def sign_up_customer(username, email, password):
+    def sign_up_user(username, password, is_seller):
         # this methods adds a user to the database if the username is not taken
-        exists = CustomerManager.check_existence(username)
+        exists = UserManager.check_existence(username)
         if not exists:
-            Customer.objects.create_user(username, email, password)
+            WebsiteUser.objects.create_user(username=username, email=username, password=password,
+                                            is_seller=is_seller, is_admin=False, credit=0)
             return 'Sign up completed successfully'
         else:
             return 'The username is used'
@@ -19,10 +21,32 @@ class CustomerManager(models.Manager):
     @staticmethod
     def check_existence(username):
         # this method checks if the username exists in the database
-        return Customer.objects.filter(username=username).exists()
+        return User.objects.filter(username=username).exists()
+
+    @staticmethod
+    def login(request, username, password):
+        # this method checks if the username exists. In the condition of existence if checks the password.
+        if not UserManager.check_existence(username):
+            return 'no such a user'
+        else:
+            user = authenticate(username=username, password=password)
+            if user is None:
+                return 'Wrong Password'
+            login(request=request, user=user)
+            return 'Successful Login'
+
+    @staticmethod
+    def get_user_by_username(username):
+        return WebsiteUser.objects.get(username=username)
 
 
-class SellerManager(models.Manager):
+class WebsiteUser(User):
+    is_seller = models.BooleanField()
+    is_admin = models.BooleanField()
+    credit = models.BigIntegerField()
+
+
+class Product(models.Model):
     pass
 
 
@@ -31,20 +55,16 @@ class Customer(User):
 
 
 class Seller(User):
-    is_Admin = models.BooleanField
-    credit = models.BigIntegerField()
-
-
-class Product(models.Model):
     pass
 
 
 class Contract(models.Model):
-    seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
+    seller = models.ForeignKey(WebsiteUser, on_delete=models.CASCADE)
     description = models.TextField()
     response = models.TextField()
     is_signed = models.BooleanField()
     profit_perc = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+    objects = models.Manager()
 
     def sign_contract(self, sign, response):
         self.is_signed = sign
@@ -57,3 +77,11 @@ class Contract(models.Model):
 
     def __unicode__(self):
         return self.seller.first_name + " " + self.seller.last_name
+
+
+class ContractManager(models.Manager):
+    @staticmethod
+    def make_new_contract(seller, description, profit_perc, response='', is_signed=False):
+        contract = Contract(seller=seller, description=description, response=response, profit_perc=profit_perc,
+                            is_signed=is_signed)
+        contract.save()
