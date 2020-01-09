@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import CustomerManager
 from .forms import SignUpForm, SignInForm
+from django.contrib.auth import views as auth_views
 
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
