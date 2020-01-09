@@ -8,12 +8,12 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class UserManager(models.Manager):
     @staticmethod
-    def sign_up_user(username, password, is_seller):
+    def sign_up_user(username, password, is_seller, name, family_name):
         # this methods adds a user to the database if the username is not taken
         exists = UserManager.check_existence(username)
         if not exists:
-            WebsiteUser.objects.create_user(username=username, email=username, password=password,
-                                            is_seller=is_seller, is_admin=False, credit=0)
+            WebsiteUser.objects.create_user(username=username, email=username, password=password,is_seller=is_seller,
+                                            is_admin=False, credit=0, first_name=name, last_name=family_name)
             return 'Sign up completed successfully'
         else:
             return 'The username is used'

@@ -20,10 +20,11 @@ def sign_up(request):  # the sign up form is provided for the new user
 @csrf_exempt
 def sign_up_do(request):  # this should get the input data from sign up form and add the new user to database
     # TODO: based on different results, the user have to be directed to different web pages
-    username, password, is_seller = request.POST['email'], request.POST['password'], False
+    username, password, is_seller, name, family_name = request.POST['email'], request.POST['password'], False\
+        , request.POST['name'], request.POST['family_name']
     if 'type' in request.POST.keys():  # if type exists it means that the user wants to sign up as a Seller
         is_seller = True
-    result = UserManager.sign_up_user(username, password, is_seller)
+    result = UserManager.sign_up_user(username, password, is_seller, name, family_name)
     return HttpResponse(result)
 
 
