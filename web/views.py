@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import UserManager
-from .forms import SignUpForm, SignInForm
-
+from .forms import SignUpForm, SignInForm, ProposeContract
+from django.shortcuts import redirect
 
 @csrf_exempt
 def home(request):
@@ -39,7 +39,7 @@ def sign_in(request):
 def sign_in_do(request):
     # check email and password if it exists in the database
     email, password = request.POST['email'], request.POST['password']
-    result = UserManager.login(email, password)
+    result = UserManager.login(request, email, password)
     if result == 'Successful Login':
         return render(request, 'web/index.html')
     elif result == 'no such a user':
@@ -48,3 +48,17 @@ def sign_in_do(request):
         return HttpResponse('password problem')
     else:
         return HttpResponse('WTF')
+
+
+@csrf_exempt
+def propose_contract(request):
+    # the propose form is provided for the seller
+    if not request.user.is_authenticated:
+        return redirect('sign_in')
+    user = UserManager.get_user_by_username(request.user.username)
+    if not user.is_seller:
+        return HttpResponse('You are not a seller')
+    form = ProposeContract()
+    return render(request, 'web/propose_contract_test.html', {'form': form})
+
+

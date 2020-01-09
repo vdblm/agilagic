@@ -11,3 +11,8 @@ class SignUpForm(forms.Form):
     email = forms.EmailField(initial='id@domain.com', required=True)
     password = forms.CharField(widget=forms.PasswordInput(), min_length=8, required=True)
     type = forms.MultipleChoiceField(label='Join as a seller', widget=forms.CheckboxInput(), required=False)
+
+
+class ProposeContract(forms.Form):
+    percentage = forms.IntegerField(min_value=0, max_value=100)
+    description = forms.CharField(widget=forms.Textarea)

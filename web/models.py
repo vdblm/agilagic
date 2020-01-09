@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.db import models
 
 # Create your models here.
@@ -24,7 +24,7 @@ class UserManager(models.Manager):
         return User.objects.filter(username=username).exists()
 
     @staticmethod
-    def login(username, password):
+    def login(request, username, password):
         # this method checks if the username exists. In the condition of existence if checks the password.
         if not UserManager.check_existence(username):
             return 'no such a user'
@@ -32,7 +32,12 @@ class UserManager(models.Manager):
             user = authenticate(username=username, password=password)
             if user is None:
                 return 'Wrong Password'
+            login(request=request, user=user)
             return 'Successful Login'
+
+    @staticmethod
+    def get_user_by_username(username):
+        return WebsiteUser.objects.get(username=username)
 
 
 class WebsiteUser(User):
