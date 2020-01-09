@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Hello</h1>
-<form action="{% url 'sign_in_do' %}" method="post">
+<form action="." method="post">
     {% csrf_token %}
     {{ form.as_ul }}
     <input type="submit" value="Submit">
