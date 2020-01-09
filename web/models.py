@@ -64,6 +64,7 @@ class Contract(models.Model):
     response = models.TextField()
     is_signed = models.BooleanField()
     profit_perc = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+    objects = models.Manager()
 
     def sign_contract(self, sign, response):
         self.is_signed = sign
@@ -76,3 +77,11 @@ class Contract(models.Model):
 
     def __unicode__(self):
         return self.seller.first_name + " " + self.seller.last_name
+
+
+class ContractManager(models.Manager):
+    @staticmethod
+    def make_new_contract(seller, description, profit_perc, response='', is_signed=False):
+        contract = Contract(seller=seller, description=description, response=response, profit_perc=profit_perc,
+                            is_signed=is_signed)
+        contract.save()
