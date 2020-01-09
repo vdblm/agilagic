@@ -1,6 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from .forms import SignUpForm, SignInForm
+from django.contrib.auth import views as auth_views
+
+from django.views.decorators.csrf import csrf_exempt
+from .models import *
 from .models import UserManager, ContractManager
 from .forms import SignUpForm, SignInForm, ProposeContract
 from django.shortcuts import redirect
