@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>You Can propose a contract here</title>
+</head>
+<body>
+<h1>Hello</h1>
+<form action="{% url 'propose_contract_do' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

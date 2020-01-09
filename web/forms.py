@@ -10,6 +10,8 @@ class SignInForm(forms.Form):
 class SignUpForm(forms.Form):
     email = forms.EmailField(initial='id@domain.com', required=True)
     password = forms.CharField(widget=forms.PasswordInput(), min_length=8, required=True)
+    name = forms.CharField(required=True)
+    family_name = forms.CharField(required=True, label='Family Name')
     type = forms.MultipleChoiceField(label='Join as a seller', widget=forms.CheckboxInput(), required=False)
 
 
