@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import CustomerManager
+from .models import UserManager
 from .forms import SignUpForm, SignInForm
 
 
@@ -14,26 +14,37 @@ def home(request):
 @csrf_exempt
 def sign_up(request):
     # the sign up form is provided for the new user
-    return render(request, 'web/sign_up.html')
+    form = SignUpForm()
+    return render(request, 'web/SignUp_test.html', {'form': form})
 
 
 @csrf_exempt
-def verify_sign_up(request):
+def sign_up_do(request):
     # this should get the input data from sign up form and add the new user to database
-    params = request.POST
-    result = CustomerManager.sign_up_customer(params['username'], params['email'], params['password'])
-    return HttpResponse('sign up completed')
+    username, password, is_seller = request.POST['email'], request.POST['password'], False
+    if 'type' in request.POST.keys():
+        is_seller = True
+    result = UserManager.sign_up_user(username, password, is_seller)
+    return HttpResponse(result)
 
 
 @csrf_exempt
 def sign_in(request):
     # the login form is provided for the user
     form = SignInForm()
-    return render(request, 'web/SignIn.html', {'form': form})
+    return render(request, 'web/SignIn_test.html', {'form': form})
 
 
 @csrf_exempt
 def sign_in_do(request):
-    # TODO : check email and password if it exists in the database
+    # check email and password if it exists in the database
     email, password = request.POST['email'], request.POST['password']
-    return HttpResponse(request.POST['email'])
+    result = UserManager.login(email, password)
+    if result == 'Successful Login':
+        return render(request, 'web/index.html')
+    elif result == 'no such a user':
+        return HttpResponse('This username is not defined')
+    elif result == 'Wrong Password':
+        return HttpResponse('password problem')
+    else:
+        return HttpResponse('WTF')

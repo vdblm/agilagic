@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sign-In page</title>
+    <title>Sign-Up page</title>
 </head>
 <body>
-<h1>Hello</h1>
-<form action="/login/" method="post">
+<h1>You can Sign Up here</h1>
+<form action="{% url 'sign_up_do' %}" method="post">
     {% csrf_token %}
     {{ form.as_ul }}
     <input type="submit" value="Submit">
