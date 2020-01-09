@@ -9,6 +9,19 @@ from .models import *
 from .models import UserManager, ContractManager
 from .forms import SignUpForm, SignInForm, ProposeContract
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required, user_passes_test
+
+
+def seller_check(user):
+    if user.is_anonymous:
+        return False
+    my_user = UserManager.get_user_by_username(user.username)
+    return my_user.is_seller
+
+
+def admin_check(user):
+    my_user = UserManager.get_user_by_username(user.username)
+    return my_user.is_admin
 
 
 @csrf_exempt
@@ -35,31 +48,23 @@ def sign_up_do(request):  # this should get the input data from sign up form and
 
 @csrf_exempt
 def sign_in(request):  # the login form is provided for the user
-    form = SignInForm()
-    return render(request, 'web/SignIn_test.html', {'form': form})
+    if request.method == 'POST':
+        email, password = request.POST['email'], request.POST['password']
+        result = UserManager.login(request, email, password)
+        if result == 'Successful Login':  # the user existed in the database with the same password as declared
+            return render(request, 'web/index.html')
+        elif result == 'no such a user':  # the declared username is not created
+            return HttpResponse('This username is not defined')
+        elif result == 'Wrong Password':  # the declared password is incorrect
+            return HttpResponse('password problem')
+    elif request.method == 'GET':
+        form = SignInForm()
+        return render(request, 'web/SignIn_test.html', {'form': form})
 
 
 @csrf_exempt
-def sign_in_do(request):  # check email and password if it exists in the database
-    email, password = request.POST['email'], request.POST['password']
-    result = UserManager.login(request, email, password)
-    if result == 'Successful Login':  # the user existed in the database with the same password as declared
-        return render(request, 'web/index.html')
-    elif result == 'no such a user':  # the declared username is not created
-        return HttpResponse('This username is not defined')
-    elif result == 'Wrong Password':  # the declared password is incorrect
-        return HttpResponse('password problem')
-    else:
-        return HttpResponse('WTF')
-
-
-@csrf_exempt
+@user_passes_test(seller_check, login_url='sign_in')
 def propose_contract(request):  # the propose form is provided for the seller
-    if not request.user.is_authenticated:  # if the user is not logged in he should be redirected to login page
-        return redirect('sign_in')
-    user = UserManager.get_user_by_username(request.user.username)
-    if not user.is_seller:  # if the user is logged in but not as a seller, he must not have permission to make contract
-        return HttpResponse('You are not a seller')
     form = ProposeContract()
     return render(request, 'web/propose_contract_test.html', {'form': form})
 
