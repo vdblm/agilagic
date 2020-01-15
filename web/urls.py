@@ -10,6 +10,6 @@ urlpatterns = [
     path(r'propose_contract_do.html/', views.propose_contract_do, name='propose_contract_do'),
     path(r'propose_product.html/', views.propose_product, name='propose_product'),
     path(r'charge_account.html/', views.charge_account, name='charge_account'),
-
+    path(r'sign_out.html/', views.sign_out, name='sign_out'),
 
 ]

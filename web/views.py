@@ -101,3 +101,10 @@ def charge_account(request):  # this view handles the account_charging form view
     elif request.method == 'GET':  # the user wants th form to be viewed
         form = ChargeAccount()
         return render(request, 'web/charge_account_test.html', {'form': form})
+
+
+@csrf_exempt
+@login_required(login_url='sign_in')
+def sign_out(request):
+    UserManager.logout(request)
+    return HttpResponse('You signed out successfully')
