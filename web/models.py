@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.db import models
 
 # Create your models here.
@@ -45,6 +45,10 @@ class UserManager(models.Manager):
         user.credit += int(amount)
         user.save()
         return 'Your request is done. Your current charge is: ' + str(user.credit)
+
+    @staticmethod
+    def logout(request):
+        logout(request)
 
 
 class WebsiteUser(User):
