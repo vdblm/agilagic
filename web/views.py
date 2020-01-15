@@ -3,7 +3,7 @@ from django.http import HttpResponse
 
 from django.views.decorators.csrf import csrf_exempt
 from .models import UserManager, ContractManager, ProductManager
-from .forms import SignUpForm, SignInForm, ProposeContract, ProposeProduct
+from .forms import SignUpForm, SignInForm, ProposeContract, ProposeProduct, ChargeAccount
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 
@@ -89,3 +89,15 @@ def propose_product(request):  # this view handles the product form viewing and 
     elif request.method == 'GET':  # th user wants the form to be viewed
         form = ProposeProduct()
         return render(request, 'web/propose_product_test.html', {'form': form})
+
+
+@csrf_exempt
+@login_required(login_url='sign_in')
+def charge_account(request):  # this view handles the account_charging form viewing and submitting the request
+    if request.method == 'POST':  # the user has submitted the form
+        amount, username = request.POST['amount'], request.user.username
+        result = UserManager.charge_credit(username, amount)
+        return HttpResponse(result)
+    elif request.method == 'GET':  # the user wants th form to be viewed
+        form = ChargeAccount()
+        return render(request, 'web/charge_account_test.html', {'form': form})

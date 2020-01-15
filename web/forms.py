@@ -25,3 +25,7 @@ class ProposeProduct(forms.Form):
     price = forms.IntegerField()
     description = forms.CharField(widget=forms.Textarea)
     img = forms.ImageField()
+
+
+class ChargeAccount(forms.Form):
+    amount = forms.IntegerField()

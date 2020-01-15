@@ -39,6 +39,13 @@ class UserManager(models.Manager):
     def get_user_by_username(username):
         return WebsiteUser.objects.get(username=username)
 
+    @staticmethod
+    def charge_credit(username, amount):
+        user = UserManager.get_user_by_username(username)
+        user.credit += int(amount)
+        user.save()
+        return 'Your request is done. Your current charge is: ' + str(user.credit)
+
 
 class WebsiteUser(User):
     is_seller = models.BooleanField()
