@@ -28,19 +28,17 @@ def home(request):  # this shows the home page of the website
 
 @csrf_exempt
 def sign_up(request):  # the sign up form is provided for the new user
-    form = SignUpForm()
-    return render(request, 'web/SignUp_test.html', {'form': form})
-
-
-@csrf_exempt
-def sign_up_do(request):  # this should get the input data from sign up form and add the new user to database
-    # TODO: based on different results, the user have to be directed to different web pages
-    username, password, is_seller, name, family_name = request.POST['email'], request.POST['password'], False \
-        , request.POST['name'], request.POST['family_name']
-    if 'type' in request.POST.keys():  # if type exists it means that the user wants to sign up as a Seller
-        is_seller = True
-    result = UserManager.sign_up_user(username, password, is_seller, name, family_name)
-    return HttpResponse(result)
+    if request.method == 'GET':
+        form = SignUpForm()
+        return render(request, 'web/pages/sign-up.html', {'form': form})
+    elif request.method == 'POST':  # this should get the input data from sign up form and add the new user to database
+        # TODO: based on different results, the user have to be directed to different web pages
+        username, password, is_seller, name, family_name = request.POST['email'], request.POST['password'], False \
+            , request.POST['name'], request.POST['family_name']
+        if 'type' in request.POST.keys():  # if type exists it means that the user wants to sign up as a Seller
+            is_seller = True
+        result = UserManager.sign_up_user(username, password, is_seller, name, family_name)
+        return HttpResponse(result)
 
 
 @csrf_exempt
@@ -49,14 +47,14 @@ def sign_in(request):  # the login form is provided for the user
         email, password = request.POST['email'], request.POST['password']
         result = UserManager.login(request, email, password)
         if result == 'Successful Login':  # the user existed in the database with the same password as declared
-            return render(request, 'web/index.html')
+            return render(request, 'web/pages/blank-page.html')
         elif result == 'no such a user':  # the declared username is not created
             return HttpResponse('This username is not defined')
         elif result == 'Wrong Password':  # the declared password is incorrect
             return HttpResponse('password problem')
     elif request.method == 'GET':
         form = SignInForm()
-        return render(request, 'web/sign_in.html', {'form': form})
+        return render(request, 'web/pages/login.html', {'form': form})
 
 
 @csrf_exempt
