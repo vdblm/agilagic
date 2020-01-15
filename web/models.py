@@ -47,7 +47,26 @@ class WebsiteUser(User):
 
 
 class Product(models.Model):
-    pass
+    status_choices = (
+        ('P', 'Pending'),  # this status is when the product is proposed but not accepted by admin
+        ('S', 'Signed'),   # this status is when the admin accepts the product
+        ('U', 'Unsigned'),   # this status is when the admin denies the product
+        ('H', 'Hidden'),   # this status is when the charge of the seller is less than a pre-defined threshold
+    )
+    name = models.TextField()
+    description = models.TextField()
+    owner = models.ForeignKey(WebsiteUser, on_delete=models.CASCADE)
+    status = models.CharField(max_length=2, choices=status_choices)
+    price = models.BigIntegerField()
+    img = models.ImageField(null=True)
+    objects = models.Manager()
+
+
+class ProductManager(models.Manager):
+    @staticmethod
+    def make_new_product(name, description, owner, price, img, status='P'):
+        product = Product(name=name, description=description, owner=owner, status=status, price=price, img=img)
+        product.save()
 
 
 class Contract(models.Model):

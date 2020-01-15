@@ -1,19 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
-from .forms import SignUpForm, SignInForm
-from django.contrib.auth import views as auth_views
 
 from django.views.decorators.csrf import csrf_exempt
-from .models import *
-from .models import UserManager, ContractManager
-from .forms import SignUpForm, SignInForm, ProposeContract
-from django.shortcuts import redirect
+from .models import UserManager, ContractManager, ProductManager
+from .forms import SignUpForm, SignInForm, ProposeContract, ProposeProduct
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 
 def seller_check(user):
     if user.is_anonymous:
+        return False
+    if user.is_superuser:
         return False
     my_user = UserManager.get_user_by_username(user.username)
     return my_user.is_seller
@@ -59,11 +56,12 @@ def sign_in(request):  # the login form is provided for the user
             return HttpResponse('password problem')
     elif request.method == 'GET':
         form = SignInForm()
-        return render(request, 'web/SignIn_test.html', {'form': form})
+        return render(request, 'web/sign_in.html', {'form': form})
 
 
 @csrf_exempt
-@user_passes_test(seller_check, login_url='sign_in')
+@login_required(login_url='sign_in')
+@user_passes_test(seller_check)
 def propose_contract(request):  # the propose form is provided for the seller
     form = ProposeContract()
     return render(request, 'web/propose_contract_test.html', {'form': form})
@@ -76,3 +74,18 @@ def propose_contract_do(request):  # the proposed contract should be saved in th
     seller = UserManager.get_user_by_username(request.user.username)
     ContractManager.make_new_contract(seller=seller, profit_perc=percentage, description=description)
     return HttpResponse('We are in Propose.Do')
+
+
+@csrf_exempt
+@login_required(login_url='sign_in')
+@user_passes_test(seller_check)
+def propose_product(request):  # this view handles the product form viewing and submitting
+    if request.method == 'POST':  # the user has submitted the form
+        name, price, description, img = request.POST['name'], request.POST['price'], \
+                                        request.POST['description'], request.POST['img']
+        owner = UserManager.get_user_by_username(request.user.username)
+        ProductManager.make_new_product(name, description, owner, price, img)
+        return HttpResponse('You product is added to database')
+    elif request.method == 'GET':  # th user wants the form to be viewed
+        form = ProposeProduct()
+        return render(request, 'web/propose_product_test.html', {'form': form})
