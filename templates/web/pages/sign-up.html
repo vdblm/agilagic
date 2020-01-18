@@ -35,8 +35,7 @@
     <!-- ============================================================== -->
     <!-- signup form  -->
     <!-- ============================================================== -->
-   <!-- 
- <form class="splash-container" dir = "rtl">
+    <form class="splash-container" dir = "rtl">
         <div class="card">
             <div class="card-header">
                 <h3 class="mb-1"><center>ثبت حساب کاربری جدید</center></h3>
@@ -55,7 +54,7 @@
                     <input class="form-control form-control-lg" required="" placeholder="تکرار رمز عبور">
                 </div>
                 <div class="form-group pt-2">
-                    <button class="btn btn-block btn-primary" type="submit">ثبت نام</button>
+                    <button href="seller-profile.html" class="btn btn-block btn-primary" type="submit">ثبت نام</button>
                 </div>
                 <div class="form-group">
                     <label class="custom-control custom-checkbox">
@@ -69,13 +68,6 @@
             </div>
         </div>
     </form>
- -->
- 
- <form action="." method="post">
-    {% csrf_token %}
-    {{ form.as_ul }}
-    <input type="submit" value="Submit">
-</form>
 </body>
 
  

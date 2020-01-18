@@ -163,6 +163,7 @@ body {
     color: #71748d;
     background-color: #efeff6;
     -webkit-font-smoothing: antialiased;
+    text-align: right;
 }
 
 h1,
@@ -1943,7 +1944,7 @@ Container / Wrapper
 .dashboard-wrapper {
     position: relative;
     left: 0;
-    margin-left: 264px;
+    margin-left: 0px;
     min-height: 870px !important;
 }
 
@@ -3805,17 +3806,18 @@ Pills Regular
 
 .pills-regular {}
 
-.pills-regular .nav.nav-pills {}
+.pills-regular .nav.nav-pills {margin-right: 300px;}
 
 .pills-regular .nav.nav-pills .nav-item {}
 
 .pills-regular .nav.nav-pills .nav-item .nav-link {
     background-color: #dddde8;
     padding: 14px 26px;
-    margin-right: 3px;
+    margin-right: 0px;
     color: #71748d;
     font-size: 16px;
-    margin-bottom: 4px;
+    margin-bottom: 0px;
+    margin-right: 3px;
 }
 
 .pills-regular .nav.nav-pills .nav-item .nav-link.active {
@@ -3827,6 +3829,8 @@ Pills Regular
     background-color: #fff;
     padding: 30px;
     border-radius: 4px;
+    margin-right: 300px;
+    margin-left: 300px;
 }
 
 
