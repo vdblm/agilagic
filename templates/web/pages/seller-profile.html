@@ -150,11 +150,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="profile" aria-selected="false">ثبت کالای جدید</a>
                                     </li>
+                                  
                                     <li class="nav-item">
-                                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="contact" aria-selected="false">لیست کالا ها</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="contact" aria-selected="false">مدیریت حساب</a>
+                                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-charge" role="tab" aria-controls="contact" aria-selected="false">مدیریت حساب</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="pills-tabContent">
@@ -222,10 +220,61 @@
                                                 <input id="inputText4" type="number" class="form-control" placeholder="Numbers">
                                             </div>
                                             
+                                            <h5>تصویر</h5>
                                             <div class="custom-file mb-3">
                                                 <input type="file" class="custom-file-input" id="customFile">
                                                 <label class="custom-file-label" for="customFile">تصویر کالا</label>
                                             </div>
+                                            <div class="card p-3">
+                               				 <!-- .card -->
+                               					 <div class="card card-figure">
+                                 					   <!-- .card-figure -->
+                                  						  <figure class="figure">
+                                    				    <!-- .figure-img -->
+                                      					  <div class="figure-attachment">
+                                 				           <img src="../assets/images/card-img.jpg" alt="Card image cap" class="img-fluid"> </div>
+                                 					       <!-- /.figure-img -->
+                                  					      <figcaption class="figure-caption">
+                                  					          <ul class="list-inline d-flex text-muted mb-0">
+                                  				              <li class="list-inline-item text-truncate mr-auto">Image attachment </li>
+                                  				               <li class="list-inline-item">
+                                   			                     <a href="../assets/images/card-img-1.jpg" download>  <span><i class="fas fa-download "></i></span></a>
+                                    		                </li>
+                                     		               <li class="list-inline-item">
+                                         		               <a href="#" class="btn btn-reset text-muted" title="More actions">
+                                            		                <span class="fas fa-caret-down"></span>
+                                        		            </a>
+                                              		      </li>
+                                          		  </ul>
+                                      		  </figcaption>
+                                   		 		</figure>
+                                  		  <!-- /.card-figure -->
+                             			   </div>
+                             		   <!-- /.card -->
+                           			 </div>
+                                            <h5>رنگ ها</h5>
+                                            <label class="custom-control custom-checkbox custom-control-inline">
+                                                <input type="checkbox" checked="" class="custom-control-input"><span class="custom-control-label">زرد</span>
+                                            </label>
+                                            <label class="custom-control custom-checkbox custom-control-inline">
+                                                <input type="checkbox" class="custom-control-input"><span class="custom-control-label">قرمز</span>
+                                            </label>
+                                            <label class="custom-control custom-checkbox custom-control-inline">
+                                                <input type="checkbox" class="custom-control-input"><span class="custom-control-label">آبی</span>
+                                            </label>
+                                             <h5>سایز ها</h5>
+                                            <label class="custom-control custom-checkbox custom-control-inline">
+                                                <input type="checkbox" checked="" class="custom-control-input"><span class="custom-control-label">S</span>
+                                            </label>
+                                            <label class="custom-control custom-checkbox custom-control-inline">
+                                                <input type="checkbox" class="custom-control-input"><span class="custom-control-label">M</span>
+                                            </label>
+                                            <label class="custom-control custom-checkbox custom-control-inline">
+                                                <input type="checkbox" class="custom-control-input"><span class="custom-control-label">L</span>
+                                            </label>
+                                            <label class="custom-control custom-checkbox custom-control-inline">
+                                                <input type="checkbox" class="custom-control-input"><span class="custom-control-label">XL</span>
+                                            </label>
                                             <div class="form-group">
                                                 <label for="exampleFormControlTextarea1">توضیحات کالا</label>
                                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
@@ -245,85 +294,41 @@
                         <!-- ============================================================== -->
                         <!-- end basic form  -->
                         <!-- ============================================================== -->                                    </div>
-                         <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-							<div class="card-body p-0">
-							<div class="table-responsive">
-							<table class="table">
-							<thead class="bg-light">
-							<tr class="border-0">
-							<th class="border-0">#</th>
-							<th class="border-0">Image</th>
-							<th class="border-0">Product Name</th>
-							<th class="border-0">Product Id</th>
-							<th class="border-0">Quantity</th>
-							<th class="border-0">Price</th>
-							<th class="border-0">Order Time</th>
-							<th class="border-0">Customer</th>
-							</tr>
-							</thead>
-							<tbody>
-							<tr>
-							<td>1</td>
-							<td>
-							<div class="m-r-10"><img src="assets/images/product-pic.jpg" alt="user" class="rounded" width="45"></div>
-							</td>
-							<td>Product #1 </td>
-							<td>id000001 </td>
-							<td>20</td>
-							<td>$80.00</td>
-							<td>27-08-2018 01:22:12</td>
-							<td>Patricia J. King </td>
-							</tr>
-							<tr>
-							<td>2</td>
-							<td>
-							<div class="m-r-10"><img src="assets/images/product-pic-2.jpg" alt="user" class="rounded" width="45"></div>
-							</td>
-							<td>Product #2 </td>
-							<td>id000002 </td>
-							<td>12</td>
-							<td>$180.00</td>
-							<td>25-08-2018 21:12:56</td>
-							<td>Rachel J. Wicker </td>
-							</tr>
-							<tr>
-							<td>3</td>
-							<td>
-							<div class="m-r-10"><img src="assets/images/product-pic-3.jpg" alt="user" class="rounded" width="45"></div>
-							</td>
-							<td>Product #3 </td>
-							<td>id000003 </td>
-							<td>23</td>
-							<td>$820.00</td>
-							<td>24-08-2018 14:12:77</td>
-							<td>Michael K. Ledford </td>
-							</tr>
-							<tr>
-							<td>4</td>
-							<td>
-							<div class="m-r-10"><img src="assets/images/product-pic-4.jpg" alt="user" class="rounded" width="45"></div>
-							</td>
-							<td>Product #4 </td>
-							<td>id000004 </td>
-							<td>34</td>
-							<td>$340.00</td>
-							<td>23-08-2018 09:12:35</td>
-							<td>Michael K. Ledford </td>
-							</tr>
-							<tr>
-							<td colspan="8"><a href="#" class="btn btn-outline-light float-right">View Details</a></td>
-							</tr>
-							</tbody>
-							</table>
-							</div>
-						</div>                             
-     				 </div>
-         		</div> 
-         		 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-     				   </div>     
-     				   
-     				   <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-     				   </div>     
+         
+         		
+         		 <div class="tab-pane fade" id="pills-charge" role="tabpanel" aria-labelledby="pills-charge-tab">
+         		   <!-- ============================================================== -->
+                        <!-- basic form  -->
+                        <!-- ============================================================== -->
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                
+                                <div class="card">
+                                    <h5 class="card-header">افزایش موجودی حساب</h5>
+                                    <div class="card-body">
+                                    <h5>موجودی : ۳۶۰۰۰۰</h5> 
+                                        <form>
+                                            
+                                            <div class="form-group">
+                                                <label for="inputText4" class="col-form-label">مبلغ</label>
+                                                <input id="inputText4" type="number" class="form-control" placeholder="">
+                                            </div>
+                                           
+                                        </form>
+                                        <div class="card-body border-top">
+                                       <div class="card-body border-top">
+                                        <div class="form-group pt-2">
+                    						<button class="btn btn-block btn-primary" type="submit" href="transaction.html">افزایش موجودی</button>
+               							 </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ============================================================== -->
+                        <!-- end basic form  -->
+                        <!-- ============================================================== -->
             </div>
             
              <!-- ============================================================== -->

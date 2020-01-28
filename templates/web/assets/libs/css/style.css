@@ -1942,7 +1942,7 @@ Container / Wrapper
 }
 
 .dashboard-wrapper {
-    position: relative;
+    position: center;
     left: 0;
     margin-left: 0px;
     min-height: 870px !important;
