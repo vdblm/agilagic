@@ -10,6 +10,7 @@ from .models import UserManager, ContractManager
 from .forms import SignUpForm, SignInForm, ProposeContract
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.http import JsonResponse
 
 
 def seller_check(user):
@@ -76,3 +77,20 @@ def propose_contract_do(request):  # the proposed contract should be saved in th
     seller = UserManager.get_user_by_username(request.user.username)
     ContractManager.make_new_contract(seller=seller, profit_perc=percentage, description=description)
     return HttpResponse('We are in Propose.Do')
+
+
+def sign_contract(request):
+    if request.method == 'GET':
+        pass
+
+
+def show_contracts(request):
+    if request.method == 'GET':
+        pending_contracts = ContractManager.get_pending_contracts()
+        response = {}
+        for contract in pending_contracts:
+            # TODO is_signed is boolean!!
+            response[contract.id] = {'status': 'Pending', 'profit': contract.profit_perc,
+                                     'seller': contract.seller.username}
+        return JsonResponse(response)
+

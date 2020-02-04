@@ -78,6 +78,10 @@ class Contract(models.Model):
 
 class ContractManager(models.Manager):
     @staticmethod
+    def get_pending_contracts():
+        return Contract.objects.filter(is_signed='P')
+
+    @staticmethod
     def make_new_contract(seller, description, profit_perc, response='', is_signed='P'):
         contract = Contract(seller=seller, description=description, response=response, profit_perc=profit_perc,
                             is_signed=is_signed)
