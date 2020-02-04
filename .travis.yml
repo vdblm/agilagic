@@ -8,5 +8,17 @@ env:
 install:
   - pip install -r requirements.txt
 
+before_script:
+  - python manage.py makemigrations
+  - python manage.py migrate
 script:
   - python manage.py test
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: "Av4FCXabo+wwi73plubjTFuD3+SMROPmAv+i7AsZXh7fgyUnkYZdNvqRgXRW927qnMyElYonBw4DyTcM6fG7ilhpDelEFv9z0dKKSdgDrur4CG78aAghtrq2sM/gaQa0ScvT0baZFzBja7fh897O0AJI/on4QEObm00EIFlsHauMLUDD50W51qKW4tEu6NiuVYojQg1JITRQBpdGxkhEl20jqkt8oMWixAuo7/PFo52/xOnQPcOJckNtB3kfkW1HLKgSxsbm+RJAS0OykrH3tcw6vpB7w+AdStm14EFME2ILDem9CANBy7bg2fLMDBWertUqKS7AAgNdK4vT/aQHdGr6U3oqcI+bg6A9zIOd3xufrG1kh/QAwK1vhi4+Pl6cwNldfmm07ZYgJmL6zB7Ay4u/Ly3gd7ChSoAk4xr67XWAOhv8G4bYUzXOUvnXVH4y++cc6pxsk10US/SrL3Bp7DK2i3r76KA3vnsMBzjjdZhT1MoyQcQTJu80jycNwfwt7LLurkzl6PxFG1j9B3FFY1zF6IDrnDg74Iad/ESJtE+EvBHhZumvwtE/c9UO/3oLaWxG9ff9AndlE2L10ZSKXaoMRcI0Ec+INA+fSXMyHlVPyiOzNZY828ZtSbEjpYdHxgXY0EcA5N5C4EObv6zlS83mG8sTebUktgq5Mmyepks="
+
+  app: #name
+  on:
+    repo: vdblm/agilagic
