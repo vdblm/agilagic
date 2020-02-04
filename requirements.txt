@@ -1,7 +1,7 @@
 asgiref==3.2.3
 astroid==2.3.3
 coverage==5.0b1
-Django==3.0
+Django==3.0.3
 django-nose==1.4.6
 isort==4.3.21
 lazy-object-proxy==1.4.3
