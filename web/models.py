@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.db import models
 
 # Create your models here.
@@ -39,6 +39,17 @@ class UserManager(models.Manager):
     def get_user_by_username(username):
         return WebsiteUser.objects.get(username=username)
 
+    @staticmethod
+    def charge_credit(username, amount):
+        user = UserManager.get_user_by_username(username)
+        user.credit += int(amount)
+        user.save()
+        return 'Your request is done. Your current charge is: ' + str(user.credit)
+
+    @staticmethod
+    def logout(request):
+        logout(request)
+
 
 class WebsiteUser(User):
     is_seller = models.BooleanField()
@@ -47,7 +58,26 @@ class WebsiteUser(User):
 
 
 class Product(models.Model):
-    pass
+    status_choices = (
+        ('P', 'Pending'),  # this status is when the product is proposed but not accepted by admin
+        ('S', 'Signed'),   # this status is when the admin accepts the product
+        ('U', 'Unsigned'),   # this status is when the admin denies the product
+        ('H', 'Hidden'),   # this status is when the charge of the seller is less than a pre-defined threshold
+    )
+    name = models.TextField()
+    description = models.TextField()
+    owner = models.ForeignKey(WebsiteUser, on_delete=models.CASCADE)
+    status = models.CharField(max_length=2, choices=status_choices)
+    price = models.BigIntegerField()
+    img = models.ImageField(null=True)
+    objects = models.Manager()
+
+
+class ProductManager(models.Manager):
+    @staticmethod
+    def make_new_product(name, description, owner, price, img, status='P'):
+        product = Product(name=name, description=description, owner=owner, status=status, price=price, img=img)
+        product.save()
 
 
 class Contract(models.Model):

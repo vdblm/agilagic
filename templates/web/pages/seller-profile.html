@@ -1,0 +1,449 @@
+<!doctype html>
+<html>
+ 
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>صفحه فروشنده</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link href="../assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/libs/css/style.css">
+    <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+</head>
+
+<body dir = "rtl">
+    <!-- ============================================================== -->
+    <!-- main wrapper -->
+    <!-- ============================================================== -->
+    <div class="dashboard-main-wrapper">
+       <!-- ============================================================== -->
+        <!-- navbar -->
+        <!-- ============================================================== -->
+        <div class="dashboard-header">
+            <nav class="navbar navbar-expand-lg bg-white fixed-top">
+                <a class="navbar-brand" href="../index.html">Concept</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto navbar-right-top">
+                        <li class="nav-item">
+                            <div id="custom-search" class="top-search-bar">
+                                <input class="form-control" type="text" placeholder="Search..">
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown notification">
+                            <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span class="indicator"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
+                                <li>
+                                    <div class="notification-title"> پیام ها</div>
+                                    <div class="notification-list">
+                                        <div class="list-group">
+                                            <a href="#" class="list-group-item list-group-item-action active">
+                                                <div class="notification-info">
+                                                    <div class="notification-list-user-img"><img src="../assets/images/avatar-2.jpg" alt="" class="user-avatar-md rounded-circle"></div>
+                                                    <div class="notification-list-user-block"><span class="notification-list-user-name">Jeremy Rakestraw</span>accepted your invitation to join the team.
+                                                        <div class="notification-date">2 min ago</div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="list-group-item list-group-item-action">
+                                                <div class="notification-info">
+                                                    <div class="notification-list-user-img"><img src="../assets/images/avatar-3.jpg" alt="" class="user-avatar-md rounded-circle"></div>
+                                                    <div class="notification-list-user-block"><span class="notification-list-user-name">John Abraham</span>is now following you
+                                                        <div class="notification-date">2 days ago</div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="list-group-item list-group-item-action">
+                                                <div class="notification-info">
+                                                    <div class="notification-list-user-img"><img src="../assets/images/avatar-4.jpg" alt="" class="user-avatar-md rounded-circle"></div>
+                                                    <div class="notification-list-user-block"><span class="notification-list-user-name">Monaan Pechi</span> is watching your main repository
+                                                        <div class="notification-date">2 min ago</div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="list-group-item list-group-item-action">
+                                                <div class="notification-info">
+                                                    <div class="notification-list-user-img"><img src="../assets/images/avatar-5.jpg" alt="" class="user-avatar-md rounded-circle"></div>
+                                                    <div class="notification-list-user-block"><span class="notification-list-user-name">Jessica Caruso</span>accepted your invitation to join the team.
+                                                        <div class="notification-date">2 min ago</div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="list-footer"> <a href="#">View all notifications</a></div>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item dropdown nav-user">
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../assets/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"></a>
+                            <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
+                                <div class="nav-user-info">
+                                    <h5 class="mb-0 text-white nav-user-name">نام کاربر</h5>
+                                    <span class="status"></span><span class="ml-2"></span>
+                                </div>
+                                <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>صفحه شخصی</a>
+                                
+                                <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>خروج</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end navbar -->
+        <!-- ============================================================== -->
+       
+        <!-- ============================================================== -->
+        <!-- wrapper  -->
+        <!-- ============================================================== -->
+        <div class="dashboard-wrapper" dir = "rtl">
+            <div class="container-fluid  dashboard-content">
+                <!-- ============================================================== -->
+                <!-- pageheader -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="page-header">
+                            <h2 class="pageheader-title">پروفایل کاربر</h2>
+                            <p class="pageheader-text"></p>
+                            <div class="page-breadcrumb">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="../products-list.html" class="breadcrumb-link">خانه</a></li>
+                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">صفحه شخصی  </a></li>
+                                        
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- end pageheader -->
+                <!-- ============================================================== -->
+             
+                    <div class="row" dir = "rtl">
+                        
+                        
+                        <!-- ============================================================== -->
+                        <!-- basic pills  -->
+                        <!-- ============================================================== -->
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-5">
+                            <div class="section-block">
+                                <h5 class="section-title"></h5>
+                                <p></p>
+                            </div>
+                            <div class="pills-regular">
+                                <ul class="nav nav-pills mb-1" id="pills-tab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="home" aria-selected="true">ایجاد قرار داد</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="profile" aria-selected="false">ثبت کالای جدید</a>
+                                    </li>
+                                  
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-charge" role="tab" aria-controls="contact" aria-selected="false">مدیریت حساب</a>
+                                    </li>
+                                    
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="pills-products-tab" data-toggle="pill" href="#pills-products" role="tab" aria-controls="products" aria-selected="false">لیست کالا ها</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="pills-tabContent">
+                                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                    	
+						<!-- ============================================================== -->
+                        <!-- basic form  -->
+                        <!-- ============================================================== -->
+                        <div class="row" dir = "rtl">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" dir = "rtl">
+                                <div class="section-block" id="basicform" dir = "rtl">
+                                    <h3 class="section-title"></h3>
+                                </div>
+                                <div class="card">
+                                    <h5 class="card-header" dir = "rtl">قرار داد جدید</h5>
+                                    <div class="card-body">
+                                        <form>
+                                           
+                                            <div class="form-group">
+                                                <label for="inputText4" class="col-form-label">تعداد کالا</label>
+                                                <input id="inputText4" type="number" class="form-control" >
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputText4" class="col-form-label">درصد سود</label>
+                                                <input id="inputText4" type="number" class="form-control" >
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">توضیحات قرارداد</label>
+                                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="card-body border-top">
+                                        <div class="form-group pt-2">
+                    						<button class="btn btn-block btn-primary" type="submit">ثبت قرار داد</button>
+               							 </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ============================================================== -->
+                        <!-- end basic form  -->
+                        <!-- ============================================================== -->                                    </div>
+                                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <!-- ============================================================== -->
+                        <!-- basic form  -->
+                        <!-- ============================================================== -->
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="section-block" id="basicform">
+                                    <h3 class="section-title"></h3>
+                                </div>
+                                <div class="card">
+                                    <h5 class="card-header">ثبت کالای جدید</h5>
+                                    <div class="card-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="inputText3" class="col-form-label">عنوان کالا</label>
+                                                <input id="inputText3" type="text" class="form-control">
+                                            </div>
+                                           
+                                            <div class="form-group">
+                                                <label for="inputText4" class="col-form-label">تعداد کالا</label>
+                                                <input id="inputText4" type="number" class="form-control" placeholder="Numbers">
+                                            </div>
+                                            
+                                            <h5>تصویر</h5>
+                                            <div class="custom-file mb-3">
+                                                <input type="file" class="custom-file-input" id="customFile">
+                                                <label class="custom-file-label" for="customFile">تصویر کالا</label>
+                                            </div>
+                                            <div class="card p-3">
+                               				 <!-- .card -->
+                               					 <div class="card card-figure">
+                                 					   <!-- .card-figure -->
+                                  						  <figure class="figure">
+                                    				    <!-- .figure-img -->
+                                      					  <div class="figure-attachment">
+                                 				           <img src="../assets/images/card-img.jpg" alt="Card image cap" class="img-fluid"> </div>
+                                 					       <!-- /.figure-img -->
+                                  					      <figcaption class="figure-caption">
+                                  					          <ul class="list-inline d-flex text-muted mb-0">
+                                  				              <li class="list-inline-item text-truncate mr-auto">Image attachment </li>
+                                  				               <li class="list-inline-item">
+                                   			                     <a href="../assets/images/card-img-1.jpg" download>  <span><i class="fas fa-download "></i></span></a>
+                                    		                </li>
+                                     		               <li class="list-inline-item">
+                                         		               <a href="#" class="btn btn-reset text-muted" title="More actions">
+                                            		                <span class="fas fa-caret-down"></span>
+                                        		            </a>
+                                              		      </li>
+                                          		  </ul>
+                                      		  </figcaption>
+                                   		 		</figure>
+                                  		  <!-- /.card-figure -->
+                             			   </div>
+                             		   <!-- /.card -->
+                           			 </div>
+                                            <h5>رنگ ها</h5>
+                                            <label class="custom-control custom-checkbox custom-control-inline">
+                                                <input type="checkbox" checked="" class="custom-control-input"><span class="custom-control-label">زرد</span>
+                                            </label>
+                                            <label class="custom-control custom-checkbox custom-control-inline">
+                                                <input type="checkbox" class="custom-control-input"><span class="custom-control-label">قرمز</span>
+                                            </label>
+                                            <label class="custom-control custom-checkbox custom-control-inline">
+                                                <input type="checkbox" class="custom-control-input"><span class="custom-control-label">آبی</span>
+                                            </label>
+                                             <h5>سایز ها</h5>
+                                            <label class="custom-control custom-checkbox custom-control-inline">
+                                                <input type="checkbox" checked="" class="custom-control-input"><span class="custom-control-label">S</span>
+                                            </label>
+                                            <label class="custom-control custom-checkbox custom-control-inline">
+                                                <input type="checkbox" class="custom-control-input"><span class="custom-control-label">M</span>
+                                            </label>
+                                            <label class="custom-control custom-checkbox custom-control-inline">
+                                                <input type="checkbox" class="custom-control-input"><span class="custom-control-label">L</span>
+                                            </label>
+                                            <label class="custom-control custom-checkbox custom-control-inline">
+                                                <input type="checkbox" class="custom-control-input"><span class="custom-control-label">XL</span>
+                                            </label>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">توضیحات کالا</label>
+                                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="card-body border-top">
+                                       <div class="card-body border-top">
+                                        <div class="form-group pt-2">
+                    						<button class="btn btn-block btn-primary" type="submit">ثبت کالا</button>
+               							 </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ============================================================== -->
+                        <!-- end basic form  -->
+                        <!-- ============================================================== -->                                    </div>
+         
+         		
+         		 <div class="tab-pane fade" id="pills-charge" role="tabpanel" aria-labelledby="pills-charge-tab">
+         		   <!-- ============================================================== -->
+                        <!-- basic form  -->
+                        <!-- ============================================================== -->
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                
+                                <div class="card">
+                                    <h5 class="card-header">افزایش موجودی حساب</h5>
+                                    <div class="card-body">
+                                    <h5>موجودی : ۳۶۰۰۰۰</h5> 
+                                        <form>
+                                            
+                                            <div class="form-group">
+                                                <label for="inputText4" class="col-form-label">مبلغ</label>
+                                                <input id="inputText4" type="number" class="form-control" placeholder="">
+                                            </div>
+                                           
+                                        </form>
+                                        <div class="card-body border-top">
+                                       <div class="card-body border-top">
+                                        <div class="form-group pt-2">
+                    						<button class="btn btn-block btn-primary" type="submit" href="transaction.html">افزایش موجودی</button>
+               							 </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ============================================================== -->
+                        <!-- end basic form  -->
+                        <!-- ============================================================== -->
+            </div>
+            
+            
+            <div class="tab-pane fade show active" id="pills-products" role="tabpanel" aria-labelledby="pills-products-tab">
+            	<!-- ============================================================== -->
+                    <!-- top selling products  -->
+                    <!-- ============================================================== -->
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <h5 class="card-header">Top Selling Products</h5>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class="bg-light">
+                                            <tr class="border-0">
+                                                <th class="border-0">#</th>
+                                                <th class="border-0">Image</th>
+                                                <th class="border-0">Product Name</th>
+                                                <th class="border-0">Product Id</th>
+                                                <th class="border-0">Quantity</th>
+                                                <th class="border-0">Price</th>
+                                                <th class="border-0">Advertise</th>
+                                               
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>
+                                                    <div class="m-r-10"><img src="assets/images/product-pic.jpg" alt="user" class="rounded" width="45"></div>
+                                                </td>
+                                                <td>Product #1 </td>
+                                                <td>id000001 </td>
+                                                <td>20</td>
+                                                <td>$80.00</td>
+                                                <td>27-08-2018 01:22:12</td>
+                                                <td>Patricia J. King </td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>
+                                                    <div class="m-r-10"><img src="assets/images/product-pic-2.jpg" alt="user" class="rounded" width="45"></div>
+                                                </td>
+                                                <td>Product #2 </td>
+                                                <td>id000002 </td>
+                                                <td>12</td>
+                                                <td>$180.00</td>
+                                                <td>25-08-2018 21:12:56</td>
+                                                <td>Rachel J. Wicker </td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>
+                                                    <div class="m-r-10"><img src="assets/images/product-pic-3.jpg" alt="user" class="rounded" width="45"></div>
+                                                </td>
+                                                <td>Product #3 </td>
+                                                <td>id000003 </td>
+                                                <td>23</td>
+                                                <td>$820.00</td>
+                                                <td>24-08-2018 14:12:77</td>
+                                                <td>Michael K. Ledford </td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>
+                                                    <div class="m-r-10"><img src="assets/images/product-pic-4.jpg" alt="user" class="rounded" width="45"></div>
+                                                </td>
+                                                <td>Product #4 </td>
+                                                <td>id000004 </td>
+                                                <td>34</td>
+                                                <td>$340.00</td>
+                                                <td>23-08-2018 09:12:35</td>
+                                                <td>Michael K. Ledford </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="8"><a href="#" class="btn btn-outline-light float-right">View Details</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- end top selling products  -->
+                    <!-- ============================================================== -->
+            </div>
+            
+             <!-- ============================================================== -->
+             <!-- end basic pills  -->
+             <!-- ============================================================== -->
+                
+            </div>
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            
+            <!-- ============================================================== -->
+            <!-- end footer -->
+            <!-- ============================================================== -->
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end main wrapper -->
+    <!-- ============================================================== -->
+    <!-- Optional JavaScript -->
+    <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+    <script src="../assets/libs/js/main-js.js"></script>
+</body>
+
+ 
+</html>
