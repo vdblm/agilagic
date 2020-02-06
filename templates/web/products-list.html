@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
  
@@ -6,10 +7,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/libs/css/style.css">
-    <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="{% static 'web/assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link href="{% static 'web/assets/vendor/fonts/circular-std/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'web/assets/libs/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'web/assets/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
     <title>لیست کالا ها</title>
 </head>
 
@@ -44,7 +45,7 @@
                                         <div class="list-group">
                                             <a href="#" class="list-group-item list-group-item-action active">
                                                 <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img src="assets/images/avatar-2.jpg" alt="" class="user-avatar-md rounded-circle"></div>
+                                                    <div class="notification-list-user-img"><img src="../../static/web/assets/images/avatar-2.jpg" alt="" class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span class="notification-list-user-name">Jeremy Rakestraw</span>accepted your invitation to join the team.
                                                         <div class="notification-date">2 min ago</div>
                                                     </div>
@@ -52,7 +53,7 @@
                                             </a>
                                             <a href="#" class="list-group-item list-group-item-action">
                                                 <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img src="assets/images/avatar-3.jpg" alt="" class="user-avatar-md rounded-circle"></div>
+                                                    <div class="notification-list-user-img"><img src="../../static/web/assets/images/avatar-3.jpg" alt="" class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span class="notification-list-user-name">John Abraham </span>is now following you
                                                         <div class="notification-date">2 days ago</div>
                                                     </div>
@@ -60,7 +61,7 @@
                                             </a>
                                             <a href="#" class="list-group-item list-group-item-action">
                                                 <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img src="assets/images/avatar-4.jpg" alt="" class="user-avatar-md rounded-circle"></div>
+                                                    <div class="notification-list-user-img"><img src="../../static/web/assets/images/avatar-4.jpg" alt="" class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span class="notification-list-user-name">Monaan Pechi</span> is watching your main repository
                                                         <div class="notification-date">2 min ago</div>
                                                     </div>
@@ -68,7 +69,7 @@
                                             </a>
                                             <a href="#" class="list-group-item list-group-item-action">
                                                 <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img src="assets/images/avatar-5.jpg" alt="" class="user-avatar-md rounded-circle"></div>
+                                                    <div class="notification-list-user-img"><img src="../../static/web/assets/images/avatar-5.jpg" alt="" class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span class="notification-list-user-name">Jessica Caruso</span>accepted your invitation to join the team.
                                                         <div class="notification-date">2 min ago</div>
                                                     </div>
@@ -88,24 +89,24 @@
                                 <li class="connection-list">
                                     <div class="row">
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="assets/images/github.png" alt="" > <span>Github</span></a>
+                                            <a href="#" class="connection-item"><img src="../../static/web/assets/images/github.png" alt="" > <span>Github</span></a>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="assets/images/dribbble.png" alt="" > <span>Dribbble</span></a>
+                                            <a href="#" class="connection-item"><img src="../../static/web/assets/images/dribbble.png" alt="" > <span>Dribbble</span></a>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="assets/images/dropbox.png" alt="" > <span>Dropbox</span></a>
+                                            <a href="#" class="connection-item"><img src="../../static/web/assets/images/dropbox.png" alt="" > <span>Dropbox</span></a>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="assets/images/bitbucket.png" alt=""> <span>Bitbucket</span></a>
+                                            <a href="#" class="connection-item"><img src="../../static/web/assets/images/bitbucket.png" alt=""> <span>Bitbucket</span></a>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="assets/images/mail_chimp.png" alt="" ><span>Mail chimp</span></a>
+                                            <a href="#" class="connection-item"><img src="../../static/web/assets/images/mail_chimp.png" alt="" ><span>Mail chimp</span></a>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="assets/images/slack.png" alt="" > <span>Slack</span></a>
+                                            <a href="#" class="connection-item"><img src="../../static/web/assets/images/slack.png" alt="" > <span>Slack</span></a>
                                         </div>
                                     </div>
                                 </li>
@@ -115,7 +116,7 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown nav-user">
-                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"></a>
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../../static/web/assets/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
                                     <h5 class="mb-0 text-white nav-user-name">John Abraham </h5>
@@ -170,7 +171,7 @@
                                     <div class="product-thumbnail">
                                         <div class="product-img-head">
                                             <div class="product-img">
-                                                <img src="assets/images/eco-product-img-1.png" alt="" class="img-fluid"></div>
+                                                <img src="../../static/web/assets/images/eco-product-img-1.png" alt="" class="img-fluid"></div>
                                             <div class="ribbons"></div>
                                             <div class="ribbons-text">جدید</div>
                                             <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
@@ -198,7 +199,7 @@
                                     <div class="product-thumbnail">
                                         <div class="product-img-head">
                                             <div class="product-img">
-                                                <img src="assets/images/eco-product-img-1.png" alt="" class="img-fluid"></div>
+                                                <img src="../../static/web/assets/images/eco-product-img-1.png" alt="" class="img-fluid"></div>
                                             <div class="ribbons"></div>
                                             <div class="ribbons-text">جدید</div>
                                             <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
@@ -226,7 +227,7 @@
                                     <div class="product-thumbnail">
                                         <div class="product-img-head">
                                             <div class="product-img">
-                                                <img src="assets/images/eco-product-img-1.png" alt="" class="img-fluid"></div>
+                                                <img src="../../static/web/assets/images/eco-product-img-1.png" alt="" class="img-fluid"></div>
                                             <div class="ribbons"></div>
                                             <div class="ribbons-text">جدید</div>
                                             <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
@@ -254,7 +255,7 @@
                                     <div class="product-thumbnail">
                                         <div class="product-img-head">
                                             <div class="product-img">
-                                                <img src="assets/images/eco-product-img-1.png" alt="" class="img-fluid"></div>
+                                                <img src="../../static/web/assets/images/eco-product-img-1.png" alt="" class="img-fluid"></div>
                                             <div class="ribbons"></div>
                                             <div class="ribbons-text">جدید</div>
                                             <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
@@ -282,7 +283,7 @@
                                     <div class="product-thumbnail">
                                         <div class="product-img-head">
                                             <div class="product-img">
-                                                <img src="assets/images/eco-product-img-1.png" alt="" class="img-fluid"></div>
+                                                <img src="../../static/web/assets/images/eco-product-img-1.png" alt="" class="img-fluid"></div>
                                             <div class="ribbons"></div>
                                             <div class="ribbons-text">جدید</div>
                                             <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
@@ -310,7 +311,7 @@
                                     <div class="product-thumbnail">
                                         <div class="product-img-head">
                                             <div class="product-img">
-                                                <img src="assets/images/eco-product-img-1.png" alt="" class="img-fluid"></div>
+                                                <img src="../../static/web/assets/images/eco-product-img-1.png" alt="" class="img-fluid"></div>
                                             <div class="ribbons"></div>
                                             <div class="ribbons-text">جدید</div>
                                             <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
@@ -339,7 +340,7 @@
                                     <div class="product-thumbnail">
                                         <div class="product-img-head">
                                             <div class="product-img">
-                                                <img src="assets/images/eco-product-img-1.png" alt="" class="img-fluid"></div>
+                                                <img src="../../static/web/assets/images/eco-product-img-1.png" alt="" class="img-fluid"></div>
                                             <div class="ribbons"></div>
                                             <div class="ribbons-text">جدید</div>
                                             <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
@@ -367,7 +368,7 @@
                                     <div class="product-thumbnail">
                                         <div class="product-img-head">
                                             <div class="product-img">
-                                                <img src="assets/images/eco-product-img-1.png" alt="" class="img-fluid"></div>
+                                                <img src="../../static/web/assets/images/eco-product-img-1.png" alt="" class="img-fluid"></div>
                                             <div class="ribbons"></div>
                                             <div class="ribbons-text">جدید</div>
                                             <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
@@ -395,7 +396,7 @@
                                     <div class="product-thumbnail">
                                         <div class="product-img-head">
                                             <div class="product-img">
-                                                <img src="assets/images/eco-product-img-1.png" alt="" class="img-fluid"></div>
+                                                <img src="../../static/web/assets/images/eco-product-img-1.png" alt="" class="img-fluid"></div>
                                             <div class="ribbons"></div>
                                             <div class="ribbons-text">جدید</div>
                                             <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
@@ -563,13 +564,13 @@
         <!-- ============================================================== -->
         <!-- Optional JavaScript -->
         <!-- jquery 3.3.1 -->
-        <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+        <script src="{% static 'web/assets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
         <!-- bootstap bundle js -->
-        <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+        <script src="{% static 'web/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
         <!-- slimscroll js -->
-        <script src="assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+        <script src="{% static 'web/assets/vendor/slimscroll/jquery.slimscroll.js' %}"></script>
         <!-- main js -->
-        <script src="assets/libs/js/main-js.js"></script>
+        <script src="{% static 'web/assets/libs/js/main-js.js' %}"></script>
 </body>
  
 </html>

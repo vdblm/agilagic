@@ -33,12 +33,15 @@ def sign_up(request):  # the sign up form is provided for the new user
         return render(request, 'web/pages/sign-up.html', {'form': form})
     elif request.method == 'POST':  # this should get the input data from sign up form and add the new user to database
         # TODO: based on different results, the user have to be directed to different web pages
+        # return render(request, 'web/pages/seller-profile.html')
         username, password, is_seller, name, family_name = request.POST['email'], request.POST['password'], False \
             , request.POST['name'], request.POST['family_name']
+        # return render(request, 'web/pages/seller-profile.html')
         if 'type' in request.POST.keys():  # if type exists it means that the user wants to sign up as a Seller
             is_seller = True
         result = UserManager.sign_up_user(username, password, is_seller, name, family_name)
-        return HttpResponse(result)
+        # HttpResponse("<html><body>user email is %s.</body></html>", username)
+        return render(request, 'web/pages/seller-profile.html')
 
 
 @csrf_exempt

@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
- 
+{% load static %}
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>ثبت نام</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link href="../assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/libs/css/style.css">
-    <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="{% static 'web/assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link href="{% static 'web/assets/vendor/fonts/circular-std/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'web/assets/libs/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'web/assets/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
     <style>
     html,
     body {
@@ -35,36 +35,38 @@
     <!-- ============================================================== -->
     <!-- signup form  -->
     <!-- ============================================================== -->
-    <form class="splash-container" dir = "rtl">
+    <form class="splash-container" dir = "rtl" role="form" action="" method="post" enctype="multipart/form-data">
         <div class="card">
             <div class="card-header">
                 <h3 class="mb-1"><center>ثبت حساب کاربری جدید</center></h3>
             </div>
             <div class="card-body">
-                <div class="form-group">
-                    <input class="form-control form-control-lg" type="text" name="nick" required="" placeholder="نام کاربری" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <input class="form-control form-control-lg" type="email" name="email" required="" placeholder="ایمیل" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <input class="form-control form-control-lg" id="pass1" type="password" required="" placeholder="رمز عبور">
-                </div>
-                <div class="form-group">
-                    <input class="form-control form-control-lg" required="" placeholder="تکرار رمز عبور">
-                </div>
+                {% csrf_token %}
+                {% for field in form %}
+                    {%  if field.name != 'type' %}
+                    <div class="form-group">
+                        <input class="form-control form-control-lg" type="" name="{{ field.name }}" required="" placeholder="{{ field.label }}" autocomplete="off">
+                    </div>
+                    {% else %}
+                        <div class="form-group">
+                            <label class="custom-control custom-checkbox">
+                                <input class="custom-control-input" type="checkbox"><span class="custom-control-label">{{ field.label }} <a href="#"></a></span>
+                            </label>
+                        </div>
+                    {% endif %}
+                {% endfor %}
                 <div class="form-group pt-2">
-                    <button href="seller-profile.html" class="btn btn-block btn-primary" type="submit">ثبت نام</button>
+                    <button href="#" class="btn btn-block btn-primary" type="submit" name="submit">ثبت نام</button>
                 </div>
                 <div class="form-group">
                     <label class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox"><span class="custom-control-label">قوانین و مقررات <a href="#"></a></span>
+                        <input class="custom-control-input" type="checkbox"><span class="custom-control-label" aria-required="true">قوانین و مقررات <a href="#"></a></span>
                     </label>
                 </div>
-                
             </div>
+
             <div class="card-footer bg-white">
-                <p>قبلا عضو شده اید؟ <a href="login.html" class="text-secondary">ازینجا وارد شوید</a></p>
+                <p>قبلا عضو شده‌اید؟ <a href="login.html" class="text-secondary">از اینجا وارد شوید</a></p>
             </div>
         </div>
     </form>
