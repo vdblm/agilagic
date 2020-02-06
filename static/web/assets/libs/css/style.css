@@ -3806,7 +3806,7 @@ Pills Regular
 
 .pills-regular {}
 
-.pills-regular .nav.nav-pills {margin-right: 300px;}
+.pills-regular .nav.nav-pills {}
 
 .pills-regular .nav.nav-pills .nav-item {}
 
@@ -3829,8 +3829,6 @@ Pills Regular
     background-color: #fff;
     padding: 30px;
     border-radius: 4px;
-    margin-right: 300px;
-    margin-left: 300px;
 }
 
 

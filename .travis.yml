@@ -1,12 +1,15 @@
 language: python
 python:
-  - "3.6"
-
-env:
-  -DJANGO=3.0
-
+- '3.6'
+env: "-DJANGO=3.0.3"
 install:
-  - pip install -r requirements.txt
-
+- pip install -r requirements.txt
 script:
-  - python manage.py test
+- python manage.py test
+deploy:
+  provider: heroku
+  api_key:
+    secure: lm9i3MIWVpn+cEAepUex7XDHMw0dQz3ilzrqiB0VumoF16Lq6o8uu1JB7xO8wsvRyqd1zpRh1GwNolONlZvqaTXYkdlzgAYWhUENugx5XEU4Q1DIA93exNefSgAV/Ch/sjg50BKGU+nH7oUdr5ljY8NsjG9w+tHCel6HTWswmMGCNJR+fHcKajfBkvygWIbcp1Utqpt81vW15Jz0HJ9IaMXTh++mmooar/Q4kRyV6ySwrjl+4rq4pWG/BNtIEqzPg71YetIk83ejeYjwV4cwTZamqgtu54O4vRyK4gAeielKa1/SOQC4LQYteo3JafektH6ZOSFgIt/SpA+Hd2ta/fMRuab5bnlhtX+WUlVOZ5ewpVRpTO9hVOmNWCvEi+SP3vZkCUCYCofi3ipWPuCW37vi1F61ch2gCnS06TLaO6D+l2cTKbicrVVqF4ApKavHmxnLGFZVmwqQMKBPXFWw9nLFLcRtyLWf6OFGsKKrVHLOO+dSHyat7Be/aboMnKNtugQ9RMV+P+ak0XLh4vYZP9dboeK+u9HUuB1xJTWDuoP4QQYdDzFTFp+CA8/upCcDMnr40cu60hZkfKhdLf3Iy1RKc2b0zSzpokWGf48doJRpjPDmNZyJIZHAWKLXO50Qi4iSjph1h5hQN7m3WrFN+OseJoJz8PamfuQjj4Pbi34=
+  app: agilagic
+  on:
+    repo: vdblm/agilagic
