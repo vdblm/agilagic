@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Login</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link href="../assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/libs/css/style.css">
-    <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="../../../static/web/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link href="../../../static/web/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../static/web/assets/libs/css/style.css">
+    <link rel="stylesheet" href="../../../static/web/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
     <style>
     html,
     body {
@@ -35,19 +35,19 @@
     <div class="splash-container">
         <div class="card ">
             <div class="card-body">
-                <form dir = "rtl">
+                <form dir = "rtl" role="form" action="" method="post" enctype="multipart/form-data">
                 	<div class="card-header">
                 		<h3 class="mb-1"><center>ورود به حساب کاربری</center></h3>
            			 </div>
-                    <div class="form-group">
-                        <input class="form-control form-control-lg" id="username" type="text" placeholder="نام کاربری" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control form-control-lg" id="password" type="password" placeholder="رمز عبور">
-                    </div>
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            <input class="form-control form-control-lg" type="" name="" required="" placeholder="{{ field.label }}" autocomplete="off">
+                        </div>
+                    {% endfor %}
                     <div class="form-group">
                         <label class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox"><span class="custom-control-label">مرا بخاطر بسپار</span>
+                            <input class="custom-control-input" type="checkbox"><span class="custom-control-label">مرا به خاطر بسپار! <a href="#"></a></span>
                         </label>
                     </div>
                     <button type="submit" href="seller-profile.html" class="btn btn-primary btn-lg btn-block">ورود</button>
@@ -57,7 +57,7 @@
                 <div class="card-footer-item card-footer-item-bordered">
                     <a href="sign-up.html" class="footer-link">ایجاد حساب جدید</a></div>
                 <div class="card-footer-item card-footer-item-bordered">
-                    <a href="forgot-password.html" class="footer-link">رمز خود را فراموش کردید؟</a>
+                    <a href="forgot-password.html" class="footer-link">رمز خود را فراموش کرده‌اید؟</a>
                 </div>
             </div>
         </div>
@@ -67,8 +67,8 @@
     <!-- end login page  -->
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
-    <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../../../static/web/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../../../static/web/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 </body>
  
 </html>
