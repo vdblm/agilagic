@@ -7,8 +7,7 @@ class Transaction(models.Model):
     transaction_types = (
         ('C', 'Charge Account'),
         ('B', 'Buy Product'),
-        ('U', 'Unsigned'),
-        ('H', 'Hidden'),
+        ('D', 'Divide'),
     )
     payer = models.ForeignKey(WebsiteUser, on_delete=models.CASCADE, default='default', related_name='payer')
     receiver = models.ForeignKey(WebsiteUser, on_delete=models.CASCADE, default='default', related_name='payee')

@@ -6,6 +6,7 @@ from .models import ContractManager, ProductManager
 from .forms import ProposeContract, ProposeProduct, ChargeAccount
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import JsonResponse
+from user_authentication.models import UserManager
 
 
 def seller_check(user):
