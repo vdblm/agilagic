@@ -25,7 +25,7 @@ SECRET_KEY = 'twabqs^2ci^_sy+sl205bdnuybp5hp_4eq(839=uf10&*7-$=#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['agilagic.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
