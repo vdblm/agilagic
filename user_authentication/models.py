@@ -38,7 +38,7 @@ class UserManager(models.Manager):
 
     @staticmethod
     def login(request, username, password):
-        # this method checks if the username exists. In the condition of existence if checks the password.
+        # this method checks if the username exists. In the condition of existence it checks the password.
         if not UserManager.check_existence(username):
             return 'no such a user'
         else:

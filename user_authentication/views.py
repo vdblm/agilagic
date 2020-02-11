@@ -8,40 +8,47 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 
 
 @csrf_exempt
-def sign_up(request):  # the sign up form is provided for the new user
+def sign_up_customer(request):
+    messages = []
     if request.method == 'GET':
         form = CustomerSignUpForm()
-        if request.path == '/seller_sign_up.html/':
-            form = SellerSignUpForm('seller')
-        return render(request, 'web/pages/sign-up.html', {'form': form})
-    elif request.method == 'POST':  # this should get the input data from sign up form and add the new user to database
-        form, is_customer = None, True
+    else:
+        form = CustomerSignUpForm(request.POST)
         user_manager = UserManager()
-        if request.path == '/customer_sign_up.html/':
-            form, is_customer = CustomerSignUpForm(request.POST), True  # email, password, name, family_name
-        elif request.path == '/seller_sign_up.html/':
-            form, is_customer = SellerSignUpForm(request.POST), False  # email, password, name, number
         if form.is_valid():
-            result = user_manager.sign_up_user(is_customer, form.cleaned_data)
-        else:
-            result = 'the form is not valid'
-        my_print(result)
+            result = user_manager.sign_up_user(is_customer=True, data=form.cleaned_data)
+            if result == 'Sign up completed successfully':
+                # TODO go to the customer profile page
+                render(request, 'web/pages/')
+            else:
+                messages.append('ایمیل وارد شده تکراری است')
 
-        '''
-        # return render(request, 'web/pages/seller-profile.html')
-        username, password, is_seller, name, family_name = request.POST['email'], request.POST['password'], False \
-            , request.POST['name'], request.POST['family_name']
-        # return render(request, 'web/pages/seller-profile.html')
-        if 'type' in request.POST.keys():  # if type exists it means that the user wants to sign up as a Seller
-            is_seller = True
-        result = UserManager.sign_up_user(username, password, is_seller, name, family_name)
-        # HttpResponse("<html><body>user email is %s.</body></html>", username)
-        return render(request, 'web/pages/seller-profile.html')
-        '''
+    return render(request, 'web/pages/sign-up.html', {'form': form, 'messages': messages})
+
+
+@csrf_exempt
+def sign_up_seller(request):
+    messages = []
+    if request.method == 'GET':
+        form = SellerSignUpForm()
+    else:
+        form = SellerSignUpForm(request.POST)
+        user_manager = UserManager()
+        if form.is_valid():
+            result = user_manager.sign_up_user(is_customer=False, data=form.cleaned_data)
+            if result == 'Sign up completed successfully':
+                # TODO go to the seller profile page
+                render(request, 'web/pages/')
+            else:
+                messages.append('ایمیل وارد شده تکراری است')
+
+    return render(request, 'web/pages/sign-up.html', {'form': form, 'messages': messages})
 
 
 @csrf_exempt
 def sign_in(request):  # the login form is provided for the user
+    form = None
+    messages = []
     if request.method == 'POST':
         form = SignInForm(request.POST)
         my_print(request.POST)
@@ -49,16 +56,18 @@ def sign_in(request):  # the login form is provided for the user
             email, password = form.cleaned_data['email'], form.cleaned_data['password']
             result = UserManager.login(request, email, password)
             if result == 'Successful Login':  # the user existed in the database with the same password as declared
+                # TODO go to profile
                 return render(request, 'web/pages/blank-page.html')
             elif result == 'no such a user':  # the declared username is not created
-                return HttpResponse('This username is not defined')
+                message = 'کاربری با ایمیل وارد‌شده وجود ندارد'
+                messages.append(message)
             elif result == 'Wrong Password':  # the declared password is incorrect
-                return HttpResponse('password problem')
-        else:
-            return HttpResponse('form is not valid')
+                message = 'رمز عبور اشتباه است'
+                messages.append(message)
     elif request.method == 'GET':
         form = SignInForm()
-        return render(request, 'web/pages/login.html', {'form': form})
+
+    return render(request, 'web/pages/login.html', {'form': form, 'messages': messages})
 
 
 @csrf_exempt
