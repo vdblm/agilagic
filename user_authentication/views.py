@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from django.views.decorators.csrf import csrf_exempt
-from .models import UserManager
+from .models import UserManager, WebsiteSeller
 from .forms import SignInForm, CustomerSignUpForm, SellerSignUpForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 
@@ -19,7 +19,7 @@ def sign_up_customer(request):
             result = user_manager.sign_up_user(is_customer=True, data=form.cleaned_data)
             if result == 'Sign up completed successfully':
                 # TODO go to the customer profile page
-                render(request, 'web/pages/')
+                return render(request, 'web/pages/')
             else:
                 messages.append('ایمیل وارد شده تکراری است')
 
@@ -38,7 +38,9 @@ def sign_up_seller(request):
             result = user_manager.sign_up_user(is_customer=False, data=form.cleaned_data)
             if result == 'Sign up completed successfully':
                 # TODO go to the seller profile page
-                render(request, 'web/pages/')
+                username = form.cleaned_data['email']
+                user = UserManager.get_user_by_username(username)
+                return render(request, 'web/pages/seller-profile.html', {'user': user})
             else:
                 messages.append('ایمیل وارد شده تکراری است')
 
@@ -75,6 +77,18 @@ def sign_in(request):  # the login form is provided for the user
 def sign_out(request):
     UserManager.logout(request)
     return HttpResponse('You signed out successfully')
+
+
+@csrf_exempt
+@login_required(login_url='sign_in')
+def user_profile(request, username):
+    user = UserManager.get_user_by_username(username)
+    my_print(type(user))
+    if isinstance(user, WebsiteSeller):
+        return render(request, 'web/pages/seller-profile.html', {'user': user})
+    else:
+        # TODO customer page
+        pass
 
 
 def my_print(text):

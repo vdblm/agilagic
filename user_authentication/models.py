@@ -4,13 +4,16 @@ from django.contrib.auth import authenticate, login, logout
 
 
 class WebsiteUser(User):
-    credit = models.BigIntegerField()
     is_admin = models.BooleanField()
 
 
+class WebsiteCustomer(WebsiteUser):
+    deliver_address = models.TextField()
+
+
 class WebsiteSeller(WebsiteUser):
-    company_name = models.TextField(default='default')
-    company_phone_number = models.TextField(default='09000000000')
+    credit = models.BigIntegerField()
+    company_number = models.BigIntegerField()
 
 
 class UserManager(models.Manager):
@@ -20,13 +23,15 @@ class UserManager(models.Manager):
         exists = UserManager.check_existence(data['email'])
         if not exists:
             if is_customer:
-                WebsiteUser.objects.create_user(username=data['email'], email=data['email'], password=data['password'],
-                                                credit=0, first_name=data['name'], last_name=data['family_name']
-                                                , is_admin=False)
+                WebsiteCustomer.objects.create_user(username=data['email'], email=data['email'],
+                                                    password=data['password'],
+                                                    credit=0, first_name=data['name'], last_name=data['family_name'],
+                                                    is_admin=False)
             else:
-                WebsiteSeller.objects.create_user(username=data['email'], email=data['email'], password=data['password'],
+                WebsiteSeller.objects.create_user(username=data['email'], email=data['email'],
+                                                  password=data['password'],
                                                   credit=0, company_name=data['name'],
-                                                  company_phone_number=data['number'], is_admin=False)
+                                                  company_number=data['number'], is_admin=False)
             return 'Sign up completed successfully'
         else:
             return 'The username is used'
@@ -62,4 +67,3 @@ class UserManager(models.Manager):
     @staticmethod
     def logout(request):
         logout(request)
-
