@@ -34,7 +34,7 @@ class ProductBasket(models.Model):
         # the address should be selected
         pass
 
-    def add_product(self):  # this method gets a product and adds it to the list of products
+    def add_product(self, product):  # this method gets a product and adds it to the list of products
         pass
 
 
@@ -62,7 +62,7 @@ class ProductManager(models.Manager):
 
     @staticmethod
     def get_products_list():  # this method gives all products that can be shown on the list for customers
-        return Product.objects.get(status='S')
+        return Product.objects.filter(status='S')
 
 
 class ProductBasketManager(models.Manager):

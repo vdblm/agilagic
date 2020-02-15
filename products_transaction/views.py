@@ -3,6 +3,8 @@ from django.shortcuts import render
 from .forms import ProposeProduct
 from .models import ProductManager, ProductBasketManager, ProductBasket
 from user_authentication.models import UserManager
+
+
 # Create your views here.
 
 
@@ -25,7 +27,8 @@ def propose_product(request):
 
 def all_products(request):
     if request.method == 'GET':  # a query should be sent to the database and all products should be returned
-        return HttpResponse('all products are here')
+        products = ProductManager.get_products_list()
+        return render(request, 'web/products-list.html', {'products': products})
     elif request.method == 'POST':
         if request.POST['request_type'] == 'add_to_basket':  # the product ID is gotten and it should be added to the
             # Basket

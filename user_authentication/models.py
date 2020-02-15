@@ -5,14 +5,14 @@ from django.contrib.auth import authenticate, login, logout
 
 class WebsiteUser(User):
     is_admin = models.BooleanField()
-
+    credit = models.BigIntegerField(default=0)
 
 class WebsiteCustomer(WebsiteUser):
+    # TODO complete it!
     deliver_address = models.TextField()
 
 
 class WebsiteSeller(WebsiteUser):
-    credit = models.BigIntegerField(default=0)
     company_number = models.BigIntegerField(default=000000)
     company_name = models.CharField(max_length=20, default='name')
 
