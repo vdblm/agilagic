@@ -8,7 +8,7 @@ from user_authentication.models import WebsiteSeller, WebsiteCustomer
 class Product(models.Model):
     name = models.TextField()
     available_number = models.IntegerField()
-    seller = models.ForeignKey(WebsiteSeller, on_delete=models.CASCADE)
+    seller = models.ForeignKey(WebsiteSeller, on_delete=models.CASCADE, related_name='seller')
     status_choices = (
         ('P', 'Pending'),  # this status is when the product is proposed but not accepted by admin
         ('S', 'Signed'),  # this status is when the admin accepts the product

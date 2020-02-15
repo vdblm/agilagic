@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'web',
     'user_authentication',
     'financial_transaction',
+    'products_transaction',
 ]
 
 MIDDLEWARE = [

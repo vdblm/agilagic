@@ -12,8 +12,8 @@ class WebsiteCustomer(WebsiteUser):
 
 
 class WebsiteSeller(WebsiteUser):
-    credit = models.BigIntegerField()
-    company_number = models.BigIntegerField()
+    credit = models.BigIntegerField(default=0)
+    company_number = models.BigIntegerField(default=000000)
 
 
 class UserManager(models.Manager):
