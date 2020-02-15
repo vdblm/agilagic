@@ -14,6 +14,7 @@ class WebsiteCustomer(WebsiteUser):
 class WebsiteSeller(WebsiteUser):
     credit = models.BigIntegerField(default=0)
     company_number = models.BigIntegerField(default=000000)
+    company_name = models.CharField(max_length=20, default='name')
 
 
 class UserManager(models.Manager):
@@ -56,6 +57,14 @@ class UserManager(models.Manager):
     @staticmethod
     def get_user_by_username(username):
         return WebsiteUser.objects.get(username=username)
+
+    @staticmethod
+    def get_seller_by_username(username):
+        return WebsiteSeller.objects.get(username=username)
+
+    @staticmethod
+    def get_customer_by_username(username):
+        return WebsiteCustomer.objects.get(username=username)
 
     @staticmethod
     def charge_credit(username, amount):

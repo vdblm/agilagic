@@ -1,11 +1,13 @@
-from django.db import models
-from user_authentication.models import WebsiteSeller, WebsiteCustomer
+import sys
 
+from django.db import models
+from user_authentication.models import WebsiteSeller, UserManager, WebsiteCustomer
 
 # Create your models here.
 
 
 class Product(models.Model):
+    product_id = models.AutoField(primary_key=True)
     name = models.TextField()
     available_number = models.IntegerField()
     seller = models.ForeignKey(WebsiteSeller, on_delete=models.CASCADE, related_name='seller')
@@ -21,33 +23,64 @@ class Product(models.Model):
     # img = models.ImageField(null=True)
     objects = models.Manager()
 
-    def add_to_basket(self):
-        pass
-
 
 class ProductBasket(models.Model):
     owner = models.ForeignKey(WebsiteCustomer, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product)
-
+    objects = models.Manager()
     # TODO : a list of products
 
     def buy(self):  # available number of products should be decreased
         # the address should be selected
         pass
 
+    def add_product(self):  # this method gets a product and adds it to the list of products
+        pass
+
 
 class ProductManager(models.Manager):
 
-    def add_product(self, details_dictionary, request):  # this method adds a new proposed product to the database
+    @staticmethod
+    def add_product(details_dictionary, request):  # this method adds a new proposed product to the database
         try:
             name = details_dictionary['name']
             available_number = details_dictionary['available_number']
             description = details_dictionary['description']
             price = details_dictionary['price']
-            product = Product(name=name, available_number=available_number, seller=request.user, status='P',
+            user_manager = UserManager()
+            user = user_manager.get_seller_by_username(request.user.username)
+            product = Product(name=name, available_number=available_number, seller=user, status='P',
                               description=description, price=price)
             product.save()
-        except:
-            print('##########################################################')
-            print('something bad happened while adding product to database')
-            print('##########################################################')
+            return 'the product was successfully added to the database'
+        except Exception as exp:
+            return exp
+
+    @staticmethod
+    def get_product(product_id):  # this method returns the product by getting the product id
+        return Product.objects.get(product_id=product_id)
+
+
+class ProductBasketManager(models.Manager):
+
+    @staticmethod
+    def check_existence_of_basket_for_user(username):  # this method gets a username and checks if a ProductBasket has
+        # been initialized for the user
+        user_manager = UserManager()
+        user = user_manager.get_customer_by_username(username)
+        return ProductBasket.objects.filter(owner=user).exists()
+
+    @staticmethod
+    def get_basket_for_user(username):  # this method gives the basket of a user
+        user_manager = UserManager()
+        user = user_manager.get_customer_by_username(username)
+        return ProductBasket.objects.get(owner=user)[0]
+
+    @staticmethod
+    def add_basket(username):  # this method initializes a basket for the user given his username
+        user_manager = UserManager()
+        user = user_manager.get_customer_by_username(username)
+        basket = ProductBasket(owner=user)
+        return basket
+
+

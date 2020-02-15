@@ -43,6 +43,8 @@ def sign_up_seller(request):
                 return render(request, 'web/pages/seller-profile.html', {'user': user})
             else:
                 messages.append('ایمیل وارد شده تکراری است')
+        else:
+            return HttpResponse('the form is not valid')
 
     return render(request, 'web/pages/sign-up.html', {'form': form, 'messages': messages})
 
