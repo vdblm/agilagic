@@ -60,6 +60,10 @@ class ProductManager(models.Manager):
     def get_product(product_id):  # this method returns the product by getting the product id
         return Product.objects.get(product_id=product_id)
 
+    @staticmethod
+    def get_products_list():  # this method gives all products that can be shown on the list for customers
+        return Product.objects.get(status='S')
+
 
 class ProductBasketManager(models.Manager):
 
