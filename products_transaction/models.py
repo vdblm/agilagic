@@ -64,6 +64,25 @@ class ProductManager(models.Manager):
     def get_products_list():  # this method gives all products that can be shown on the list for customers
         return Product.objects.filter(status='S')
 
+    @staticmethod
+    def get_proposed_products_of_seller(username):  # this method returns all proposed products of a seller which are
+        # pending or unsigned
+        user = None
+        if UserManager.is_seller(username):
+            user = UserManager.get_seller_by_username(username)
+        else:
+            return 'the user is not a seller'
+        return Product.objects.filter(seller=user, status__in=['P', 'U'])
+
+    @staticmethod
+    def get_all_pending_products(username):  # the only user who have access is admin - this method returns all of the
+        # products which are pending to the admin
+        user = UserManager.get_user_by_username(username)
+        if user.is_admin():
+            return Product.objects.filter(status__in=['P'])
+        else:  # the user is not admin and and exception have to be thrown
+            return 'the user is not admin'
+
 
 class ProductBasketManager(models.Manager):
 
