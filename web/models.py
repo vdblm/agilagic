@@ -10,10 +10,10 @@ class Product(models.Model):
         ('U', 'Unsigned'),   # this status is when the admin denies the product
         ('H', 'Hidden'),   # this status is when the charge of the seller is less than a pre-defined threshold
     )
-    name = models.TextField(default='default')
-    description = models.TextField(default='default')
-    owner = models.ForeignKey(WebsiteUser, on_delete=models.CASCADE, default='default')
-    status = models.CharField(max_length=2, choices=status_choices, default='default')
+    name = models.TextField(default=0)
+    description = models.TextField(default=0)
+    owner = models.ForeignKey(WebsiteUser, on_delete=models.CASCADE, default=0)
+    status = models.CharField(max_length=2, choices=status_choices, default=0)
     price = models.BigIntegerField(default=0)
     img = models.ImageField(null=True)
     objects = models.Manager()

@@ -17,7 +17,7 @@ class Product(models.Model):
         ('U', 'Unsigned'),  # this status is when the admin denies the product
         ('H', 'Hidden'),  # this status is when the charge of the seller is less than a pre-defined threshold
     )
-    description = models.TextField(default='default')
+    description = models.TextField(default=1)
     status = models.CharField(max_length=2, choices=status_choices)
     price = models.BigIntegerField(default=0)
     # img = models.ImageField(null=True)
