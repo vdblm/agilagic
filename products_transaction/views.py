@@ -7,6 +7,9 @@ from .forms import ProposeProduct
 from .models import ProductManager, ProductBasketManager, ProductBasket
 from user_authentication.models import UserManager
 from user_authentication.views import user_profile
+from django.core import serializers
+
+
 # Create your views here.
 
 
@@ -51,3 +54,19 @@ def all_products(request):
 
         else:  # this is for other potential requests of this url
             pass
+
+
+# the customer do not have permission for this view
+def proposed_products(request):  # if user is admin then the products that are proposed but not accepted should be shown
+    # if the user is customer the products that are not accepted should be shown
+    user_manager = UserManager()
+    if user_manager.is_seller(request.user.username):  # the user is seller
+        products = ProductManager.get_proposed_products_of_seller(request.user.username)
+        qs_json = serializers.serialize('json', products)
+        return HttpResponse(qs_json, content_type='application/json')
+    elif user_manager.get_user_by_username(request.user.username).is_admin():  # the user is admin
+        products = ProductManager.get_all_pending_products(request.user.username)
+        qs_json = serializers.serialize('json', products)
+        return HttpResponse(qs_json, content_type='application/json')
+    else:  # the user is customer and should't be here:)
+        pass
