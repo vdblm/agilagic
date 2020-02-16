@@ -30,13 +30,12 @@ class UserManager(models.Manager):
             if is_customer:
                 WebsiteCustomer.objects.create_user(username=data['email'], email=data['email'],
                                                     password=data['password'],
-                                                    credit=0, first_name=data['name'], last_name=data['family_name'],
-                                                    is_admin=False)
+                                                    credit=0, first_name=data['name'], last_name=data['family_name'])
             else:
                 WebsiteSeller.objects.create_user(username=data['email'], email=data['email'],
                                                   password=data['password'],
                                                   credit=0, company_name=data['name'],
-                                                  company_number=data['number'], is_admin=False)
+                                                  company_number=data['number'])
             return 'Sign up completed successfully'
         else:
             return 'The username is used'
