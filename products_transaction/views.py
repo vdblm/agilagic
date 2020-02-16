@@ -1,34 +1,39 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+
 from .forms import ProposeProduct
 from .models import ProductManager, ProductBasketManager, ProductBasket
 from user_authentication.models import UserManager
-
-
+from user_authentication.views import user_profile
 # Create your views here.
 
 
 # have to be signed_in
 # the user_type should be seller
+@csrf_exempt
+@login_required(login_url='sign_in')
 def propose_product(request):
     if request.method == 'GET':  # the form for getting product details should be shown to the seller
-        form = ProposeProduct()
-        return render(request, 'financial_transaction/form_viewer.html', {'form': form})
+        return user_profile(request)
     elif request.method == 'POST':  # the details is gotten and a product object should be added to database
-        form = ProposeProduct(request.POST)
+        form = ProposeProduct(request.POST, request.FILES)
         if form.is_valid():
             product_manager = ProductManager()
             result = product_manager.add_product(form.cleaned_data, request)
             # TODO: the database should add the product to database
-            return HttpResponse(result)
-        else:
-            return HttpResponse('Form inputs are not valid')
+        return render(request, 'web/seller-profile.html', {'new_product_form': form})
 
 
 def all_products(request):
     if request.method == 'GET':  # a query should be sent to the database and all products should be returned
         products = ProductManager.get_products_list()
-        return render(request, 'web/products-list.html', {'products': products})
+        if UserManager.check_existence(request.user.username):
+            user = UserManager.get_user_by_username(request.user.username)
+        else:
+            user = None
+        return render(request, 'web/products-list.html', {'products': products, 'user': user})
     elif request.method == 'POST':
         if request.POST['request_type'] == 'add_to_basket':  # the product ID is gotten and it should be added to the
             # Basket

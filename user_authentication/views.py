@@ -6,6 +6,8 @@ from .models import UserManager, WebsiteSeller
 from .forms import SignInForm, CustomerSignUpForm, SellerSignUpForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 
+import products_transaction.forms as product_forms
+
 
 @csrf_exempt
 def sign_up_customer(request):
@@ -22,7 +24,7 @@ def sign_up_customer(request):
                 username = form.cleaned_data['email']
                 password = form.cleaned_data['password']
                 UserManager.login(request, username, password)
-                return render(request, 'web/')
+                return user_profile(request)
             else:
                 messages.append('ایمیل وارد شده تکراری است')
 
@@ -44,7 +46,7 @@ def sign_up_seller(request):
                 username = form.cleaned_data['email']
                 password = form.cleaned_data['password']
                 UserManager.login(request, username, password)
-                return render(request, 'web/pages/seller-profile.html')
+                return user_profile(request)
             else:
                 messages.append('ایمیل وارد شده تکراری است')
         else:
@@ -65,17 +67,8 @@ def sign_in(request):  # the login form is provided for the user
             result = UserManager.login(request, email, password)
             if result == 'Successful Login':  # the user existed in the database with the same password as declared
                 # TODO go to profile
-                user = UserManager.get_user_by_username(request.user.username)
                 UserManager.login(request, email, password)
-                if user.is_admin():  # the user is the website admin - the admin-panel
-                    # has to be the next page
-                    page = 'web/admin-profile.html'
-                elif UserManager.is_seller(email):  # the user is a seller - the seller-panel
-                    page = 'web/seller-profile.html'
-                else:  # the user is a customer - the homepage
-                    page = 'web/pages/blank-page.html'
-
-                return render(request, page)
+                return user_profile(request)
             elif result == 'no such a user':  # the declared username is not created
                 message = 'کاربری با ایمیل وارد‌شده وجود ندارد'
                 messages.append(message)
@@ -97,14 +90,23 @@ def sign_out(request):
 
 @csrf_exempt
 @login_required(login_url='sign_in')
-def user_profile(request, username):
-    user = UserManager.get_user_by_username(username)
-    my_print(type(user))
-    if isinstance(user, WebsiteSeller):
-        return render(request, 'web/pages/seller-profile.html', {'user': user})
+def user_profile(request):
+    # TODO forms should be made
+    username = request.user.username
+    # check the user exists
+    if UserManager.check_existence(username):
+        user = UserManager.get_user_by_username(username)
+        if user.is_admin():
+            return render(request, 'web/admin-profile.html')
+        elif UserManager.is_seller(user):
+            # seller forms
+            new_product_form = product_forms.ProposeProduct()
+            return render(request, 'web/seller-profile.html', {'new_product_form': new_product_form})
+        else:
+            return render(request, 'web/pages/blank-page.html')
     else:
-        # TODO customer page
-        pass
+        # TODO what should we do?:)
+        return HttpResponse('the user does not exists')
 
 
 def my_print(text):

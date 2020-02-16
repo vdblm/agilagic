@@ -3,6 +3,7 @@ import sys
 from django.db import models
 from user_authentication.models import WebsiteSeller, UserManager, WebsiteCustomer
 
+
 # Create your models here.
 
 
@@ -20,7 +21,7 @@ class Product(models.Model):
     description = models.TextField(default=1)
     status = models.CharField(max_length=2, choices=status_choices)
     price = models.BigIntegerField(default=0)
-    # img = models.ImageField(null=True)
+    img = models.ImageField(null=True, upload_to='images/')
     objects = models.Manager()
 
 
@@ -28,6 +29,7 @@ class ProductBasket(models.Model):
     owner = models.ForeignKey(WebsiteCustomer, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product)
     objects = models.Manager()
+
     # TODO : a list of products
 
     def buy(self):  # available number of products should be decreased
@@ -42,19 +44,17 @@ class ProductManager(models.Manager):
 
     @staticmethod
     def add_product(details_dictionary, request):  # this method adds a new proposed product to the database
-        try:
-            name = details_dictionary['name']
-            available_number = details_dictionary['available_number']
-            description = details_dictionary['description']
-            price = details_dictionary['price']
-            user_manager = UserManager()
-            user = user_manager.get_seller_by_username(request.user.username)
-            product = Product(name=name, available_number=available_number, seller=user, status='P',
-                              description=description, price=price)
-            product.save()
-            return 'the product was successfully added to the database'
-        except Exception as exp:
-            return exp
+        name = details_dictionary['name']
+        available_number = details_dictionary['available_number']
+        description = details_dictionary['description']
+        price = details_dictionary['price']
+        image = details_dictionary['image']
+        user_manager = UserManager()
+        user = user_manager.get_seller_by_username(request.user.username)
+        product = Product(name=name, available_number=available_number, seller=user, status='P',
+                          description=description, price=price, img=image)
+        product.save()
+        return 'the product was successfully added to the database'
 
     @staticmethod
     def get_product(product_id):  # this method returns the product by getting the product id
@@ -89,5 +89,3 @@ class ProductBasketManager(models.Manager):
         user = user_manager.get_customer_by_username(username)
         basket = ProductBasket(owner=user)
         return basket
-
-
