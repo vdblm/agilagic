@@ -71,8 +71,11 @@ class ProductBasketManager(models.Manager):
     def check_existence_of_basket_for_user(username):  # this method gets a username and checks if a ProductBasket has
         # been initialized for the user
         user_manager = UserManager()
-        user = user_manager.get_customer_by_username(username)
-        return ProductBasket.objects.filter(owner=user).exists()
+        if user_manager.is_customer(username):
+            user = user_manager.get_customer_by_username(username)
+            return ProductBasket.objects.filter(owner=user).exists()
+        else:
+            return False
 
     @staticmethod
     def get_basket_for_user(username):  # this method gives the basket of a user
