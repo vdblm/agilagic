@@ -744,34 +744,34 @@
                                                     </div>
                                                     <div class="col-xl-2 col-lg-12 col-md-12 col-sm-12 col-12">
                                                         <form dir="rtl" role="form"
-                                                              action="{% url 'products_transaction:accept_reject_product' %}"
+                                                              action="{% url 'user_profile' %}"
                                                               method="post"
                                                               enctype="multipart/form-data" novalidate>
                                                             <div class="product-btn">
                                                                 {% csrf_token %}
-                                                                <input type="hidden" name="request_type"
-                                                                       value="accept">
                                                                 <input type="hidden" name="product_id"
                                                                        value={{ product.product_id }}>
                                                                 <div class="float-xl-right float-none mt-xl-2 mt-4">
-                                                                    <button type="submit" href="#" class="btn btn-secondary">تایید
-                                                                        کالا</button>
+                                                                    <button type="submit" href="#" name="accept-product"
+                                                                            class="btn btn-secondary">تایید
+                                                                        کالا
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </form>
                                                         <form dir="rtl" role="form"
-                                                              action="{% url 'products_transaction:accept_reject_product' %}"
+                                                              action="{% url 'user_profile' %}"
                                                               method="post"
                                                               enctype="multipart/form-data" novalidate>
                                                             <div class="product-btn">
                                                                 {% csrf_token %}
-                                                                <input type="hidden" name="request_type"
-                                                                       value="reject">
                                                                 <input type="hidden" name="product_id"
                                                                        value={{ product.product_id }}>
                                                                 <div class="float-xl-right float-none mt-xl-2 mt-4">
-                                                                    <button type="submit" href="#" class="btn btn-secondary">رد
-                                                                        کالا</button>
+                                                                    <button type="submit" href="#" name="reject-product"
+                                                                            class="btn btn-secondary">رد
+                                                                        کالا
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </form>

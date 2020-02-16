@@ -101,6 +101,8 @@ def user_profile(request):
         user = UserManager.get_user_by_username(username)
         if user.is_admin():
             products = ProductManager.get_all_pending_products(user.username)
+            if request.method == 'POST':
+                admin_profile(request)
             return render(request, 'web/admin-profile.html', {'products': products})
         elif UserManager.is_seller(user):
             # seller forms
@@ -128,6 +130,20 @@ def seller_profile(request):
             result = product_manager.add_product(form.cleaned_data, request)
             # TODO: the database should add the product to database
 
+
+def admin_profile(request):
+    if 'accept-product' in request.POST or 'reject-product' in request.POST:
+        product_id = request.POST['product_id']
+        product = ProductManager.get_product(product_id)
+        if 'accept-product' in request.POST:
+            product.status = 'S'
+        else:
+            product.status = 'U'
+        product.save()
+
+
+def error404_view(request, exception):
+    return render(request, 'web/pages/404-page.html')
 
 
 def my_print(text):

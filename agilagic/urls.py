@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls.py import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls.py'))
 """
+from django.conf.urls import handler404
 from django.contrib import admin
 from . import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns, static
@@ -28,3 +29,5 @@ urlpatterns = [
 
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = 'user_authentication.views.error404_view'

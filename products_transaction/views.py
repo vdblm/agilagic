@@ -36,22 +36,3 @@ def all_products(request):
 
         else:  # this is for other potential requests of this url
             pass
-
-
-# TODO should be only the admin
-def accept_reject_product(request):
-    # we may have different requests
-    # request_type = 'accept' or 'reject'
-    # product_id = 'product_id'
-    # should make the status as 'U' (unassigned)
-    if request.method == 'POST':
-        request_type = request.POST['request_type']
-        product_id = request.POST['product_id']
-        product = ProductManager.get_product(product_id)
-        if request_type == 'accept':
-            product.status = 'S'
-        elif request_type == 'reject':
-            product.status = 'U'
-        product.save()
-    res = str(request.POST['request_type']) + str(request.POST['product_id'])
-    return HttpResponse(res)
