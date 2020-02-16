@@ -1,74 +1,104 @@
 <!doctype html>
 <html lang="en">
- 
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Login</title>
+    <title>ورود</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link href="../assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/libs/css/style.css">
-    <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
-    <style>
-    html,
-    body {
-        height: 100%;
-    }
+    <link rel="stylesheet" href="../../../static/web/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link href="../../../static/web/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../static/web/assets/libs/css/style.css">
+    <link rel="stylesheet" href="../../../static/web/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
 
-    body {
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-align: center;
-        align-items: center;
-        padding-top: 40px;
-        padding-bottom: 40px;
-    }
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+
+        }
     </style>
 </head>
 
 <body>
-    <!-- ============================================================== -->
-    <!-- login page  -->
-    <!-- ============================================================== -->
-    <div class="splash-container">
-        <div class="card ">
-            <div class="card-body">
-                <form dir = "rtl">
-                	<div class="card-header">
-                		<h3 class="mb-1"><center>ورود به حساب کاربری</center></h3>
-           			 </div>
-                    <div class="form-group">
-                        <input class="form-control form-control-lg" id="username" type="text" placeholder="نام کاربری" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control form-control-lg" id="password" type="password" placeholder="رمز عبور">
-                    </div>
-                    <div class="form-group">
-                        <label class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox"><span class="custom-control-label">مرا بخاطر بسپار</span>
-                        </label>
-                    </div>
-                    <button type="submit" href="seller-profile.html" class="btn btn-primary btn-lg btn-block">ورود</button>
-                </form>
-            </div>
-            <div class="card-footer bg-white p-0  ">
-                <div class="card-footer-item card-footer-item-bordered">
-                    <a href="sign-up.html" class="footer-link">ایجاد حساب جدید</a></div>
-                <div class="card-footer-item card-footer-item-bordered">
-                    <a href="forgot-password.html" class="footer-link">رمز خود را فراموش کردید؟</a>
+<!-- ============================================================== -->
+<!-- login page  -->
+<!-- ============================================================== -->
+<div class="splash-container">
+    <div class="card ">
+        <div class="card-body">
+            <form dir="rtl" role="form" action="" method="post" enctype="multipart/form-data" novalidate>
+                <div class="card-header">
+                    <h3 class="mb-1">
+                        <div style="text-align: center;">ورود به حساب کاربری</div>
+                    </h3>
                 </div>
+                {% csrf_token %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger">
+                            <strong>{{ message|safe }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% if form.errors %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% for field in form %}
+                    <div class="form-group">
+                        <input class="form-control form-control-lg" type="{{ field.subwidgets.0.data.type }}"
+                               name="{{ field.name }}" required=""
+                               placeholder="{{ field.label }}" autocomplete="off">
+                    </div>
+                {% endfor %}
+                <div class="form-group">
+                    <label class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox"><span class="custom-control-label">مرا به خاطر بسپار! <a
+                            href="#"></a></span>
+                    </label>
+                </div>
+                <button type="submit" href="#" class="btn btn-primary btn-lg btn-block">ورود</button>
+            </form>
+        </div>
+        <div class="card-footer bg-white p-0  ">
+            <div class="card-footer-item card-footer-item-bordered">
+                <a href="{% url 'customer_sign_up' %}" class="footer-link">مشتری جدید هستید؟</a></div>
+             <div class="card-footer-item card-footer-item-bordered">
+                <a href="{% url 'seller_sign_up' %}" class="footer-link">فروشنده‌ی جدید هستید؟</a></div>
+            <div class="card-footer-item card-footer-item-bordered">
+                <a href="{% url 'forget_password' %}" class="footer-link">رمز خود را فراموش کرده‌اید؟</a>
             </div>
         </div>
     </div>
-  
-    <!-- ============================================================== -->
-    <!-- end login page  -->
-    <!-- ============================================================== -->
-    <!-- Optional JavaScript -->
-    <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+</div>
+
+<!-- ============================================================== -->
+<!-- end login page  -->
+<!-- ============================================================== -->
+<!-- Optional JavaScript -->
+<script src="../../../static/web/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+<script src="../../../static/web/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 </body>
- 
+
 </html>

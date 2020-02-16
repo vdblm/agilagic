@@ -1,60 +1,6 @@
-from django.contrib.auth import authenticate, login, logout
 from django.db import models
-
-# Create your models here.
-from django.contrib.auth.models import User
+from user_authentication.models import WebsiteUser
 from django.core.validators import MinValueValidator, MaxValueValidator
-
-
-class UserManager(models.Manager):
-    @staticmethod
-    def sign_up_user(username, password, is_seller, name, family_name):
-        # this methods adds a user to the database if the username is not taken
-        exists = UserManager.check_existence(username)
-        if not exists:
-            WebsiteUser.objects.create_user(username=username, email=username, password=password, is_seller=is_seller,
-                                            is_admin=False, credit=0, first_name=name, last_name=family_name)
-            return 'Sign up completed successfully'
-        else:
-            return 'The username is used'
-
-    @staticmethod
-    def check_existence(username):
-        # this method checks if the username exists in the database
-        return User.objects.filter(username=username).exists()
-
-    @staticmethod
-    def login(request, username, password):
-        # this method checks if the username exists. In the condition of existence if checks the password.
-        if not UserManager.check_existence(username):
-            return 'no such a user'
-        else:
-            user = authenticate(username=username, password=password)
-            if user is None:
-                return 'Wrong Password'
-            login(request=request, user=user)
-            return 'Successful Login'
-
-    @staticmethod
-    def get_user_by_username(username):
-        return WebsiteUser.objects.get(username=username)
-
-    @staticmethod
-    def charge_credit(username, amount):
-        user = UserManager.get_user_by_username(username)
-        user.credit += int(amount)
-        user.save()
-        return 'Your request is done. Your current charge is: ' + str(user.credit)
-
-    @staticmethod
-    def logout(request):
-        logout(request)
-
-
-class WebsiteUser(User):
-    is_seller = models.BooleanField()
-    is_admin = models.BooleanField()
-    credit = models.BigIntegerField()
 
 
 class Product(models.Model):
@@ -64,10 +10,10 @@ class Product(models.Model):
         ('U', 'Unsigned'),   # this status is when the admin denies the product
         ('H', 'Hidden'),   # this status is when the charge of the seller is less than a pre-defined threshold
     )
-    name = models.TextField(default='default')
-    description = models.TextField(default='default')
-    owner = models.ForeignKey(WebsiteUser, on_delete=models.CASCADE, default='default')
-    status = models.CharField(max_length=2, choices=status_choices, default='default')
+    name = models.TextField(default=0)
+    description = models.TextField(default=0)
+    owner = models.ForeignKey(WebsiteUser, on_delete=models.CASCADE, default=0)
+    status = models.CharField(max_length=2, choices=status_choices, default=0)
     price = models.BigIntegerField(default=0)
     img = models.ImageField(null=True)
     objects = models.Manager()

@@ -5,4 +5,3 @@ from .models import *
 
 admin.site.register(Product)
 admin.site.register(Contract)
-admin.site.register(WebsiteUser)

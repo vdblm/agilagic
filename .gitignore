@@ -10,3 +10,6 @@ db*
 **.pyc
 
 **/migrations/
+
+# static files
+agilagic/static/

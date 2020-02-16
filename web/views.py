@@ -2,10 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from django.views.decorators.csrf import csrf_exempt
-from .models import UserManager, ContractManager, ProductManager
-from .forms import SignUpForm, SignInForm, ProposeContract, ProposeProduct, ChargeAccount
+from .models import ContractManager, ProductManager
+from .forms import ProposeContract, ProposeProduct, ChargeAccount
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import JsonResponse
+from user_authentication.models import UserManager
 
 
 def seller_check(user):
@@ -27,35 +28,6 @@ def home(request):  # this shows the home page of the website
     return render(request, 'web/index.html')
 
 
-@csrf_exempt
-def sign_up(request):  # the sign up form is provided for the new user
-    if request.method == 'GET':
-        form = SignUpForm()
-        return render(request, 'web/pages/sign-up.html', {'form': form})
-    elif request.method == 'POST':  # this should get the input data from sign up form and add the new user to database
-        # TODO: based on different results, the user have to be directed to different web pages
-        username, password, is_seller, name, family_name = request.POST['email'], request.POST['password'], False \
-            , request.POST['name'], request.POST['family_name']
-        if 'type' in request.POST.keys():  # if type exists it means that the user wants to sign up as a Seller
-            is_seller = True
-        result = UserManager.sign_up_user(username, password, is_seller, name, family_name)
-        return HttpResponse(result)
-
-
-@csrf_exempt
-def sign_in(request):  # the login form is provided for the user
-    if request.method == 'POST':
-        email, password = request.POST['email'], request.POST['password']
-        result = UserManager.login(request, email, password)
-        if result == 'Successful Login':  # the user existed in the database with the same password as declared
-            return render(request, 'web/pages/blank-page.html')
-        elif result == 'no such a user':  # the declared username is not created
-            return HttpResponse('This username is not defined')
-        elif result == 'Wrong Password':  # the declared password is incorrect
-            return HttpResponse('password problem')
-    elif request.method == 'GET':
-        form = SignInForm()
-        return render(request, 'web/pages/login.html', {'form': form})
 
 
 @csrf_exempt
@@ -118,8 +90,3 @@ def charge_account(request):  # this view handles the account_charging form view
         return render(request, 'web/charge_account_test.html', {'form': form})
 
 
-@csrf_exempt
-@login_required(login_url='sign_in')
-def sign_out(request):
-    UserManager.logout(request)
-    return HttpResponse('You signed out successfully')
