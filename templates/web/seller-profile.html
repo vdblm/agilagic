@@ -216,6 +216,12 @@
                                        role="tab" aria-controls="pills-review" aria-selected="false">ثبت کالای جدید</a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link" id="pills-pending-tab" data-toggle="pill"
+                                       href="#pills-pending"
+                                       role="tab" aria-controls="pills-pending" aria-selected="false">کالاهای تایید
+                                        نشده/منتظر تایید</a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link" id="pills-msg-tab" data-toggle="pill" href="#pills-msg"
                                        role="tab" aria-controls="pills-msg" aria-selected="true">قرار داد</a>
                                 </li>
@@ -225,6 +231,47 @@
                                 </li>
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
+                                <div class="tab-pane fade" id="pills-pending" role="tabpanel"
+                                     aria-labelledby="pills-pending-tab">
+
+                                    <div class="section-block">
+                                        <h3 class="section-title">لیست کالاها</h3>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                {% for product in products %}
+                                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                        <div class="media influencer-profile-data d-flex align-items-center p-2">
+                                                            <div class="mr-4">
+                                                                <img src="{{ product.img.url }}" height="100"
+                                                                     width="100">
+                                                            </div>
+                                                            <div class="media-body ">
+                                                                <div class="influencer-profile-data">
+                                                                    <h3 class="m-b-10">{{ product.name }} </h3>
+                                                                    <p>
+                                                                        <span class="m-r-20 d-inline-block">توضیحات <span
+                                                                                class="m-l-10  text-info">{{ product.description }}</span>
+                                                                        </span>
+
+                                                                        <span class="m-r-20 d-inline-block">قیمت <span
+                                                                                class="m-l-10  text-info">{{ product.price }}</span>
+                                                                        </span>
+                                                                        <span class="m-r-20 d-inline-block">وضعیت
+                                                                            <span class="m-l-10 text-secondary">{{ product.get_status_display }}</span>
+                                                                        </span>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="tab-pane fade show active" id="pills-campaign" role="tabpanel"
                                      aria-labelledby="pills-campaign-tab">
 

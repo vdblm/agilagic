@@ -13,10 +13,10 @@ class Product(models.Model):
     available_number = models.IntegerField()
     seller = models.ForeignKey(WebsiteSeller, on_delete=models.CASCADE, related_name='seller')
     status_choices = (
-        ('P', 'Pending'),  # this status is when the product is proposed but not accepted by admin
-        ('S', 'Signed'),  # this status is when the admin accepts the product
-        ('U', 'Unsigned'),  # this status is when the admin denies the product
-        ('H', 'Hidden'),  # this status is when the charge of the seller is less than a pre-defined threshold
+        ('P', 'در حال انتظار'),  # this status is when the product is proposed but not accepted by admin
+        ('S', 'تایید شده'),  # this status is when the admin accepts the product
+        ('U', 'رد شده'),  # this status is when the admin denies the product
+        ('H', 'پنهان'),  # this status is when the charge of the seller is less than a pre-defined threshold
     )
     description = models.TextField(default=1)
     status = models.CharField(max_length=2, choices=status_choices)

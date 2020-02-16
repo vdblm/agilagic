@@ -129,3 +129,5 @@ STATICFILES_DIRS = [
 # static/web/assets/images/avatar-1.jpg
 STATIC_ROOT = os.path.join(BASE_DIR, 'agilagic/static')
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
+MEDIA_URL = '/images/'

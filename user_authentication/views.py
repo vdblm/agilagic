@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from django.views.decorators.csrf import csrf_exempt
+
+from products_transaction.models import ProductManager
 from .models import UserManager, WebsiteSeller
 from .forms import SignInForm, CustomerSignUpForm, SellerSignUpForm
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -97,13 +99,16 @@ def user_profile(request):
     if UserManager.check_existence(username):
         user = UserManager.get_user_by_username(username)
         if user.is_admin():
+            products = ProductManager.get_all_pending_products(user.username)
             return render(request, 'web/admin-profile.html')
         elif UserManager.is_seller(user):
             # seller forms
+            products = ProductManager.get_proposed_products_of_seller(user.username)
             new_product_form = product_forms.ProposeProduct()
-            return render(request, 'web/seller-profile.html', {'new_product_form': new_product_form})
+            return render(request, 'web/seller-profile.html', {'new_product_form': new_product_form,
+                                                               'products': products})
         else:
-            return render(request, 'web/pages/blank-page.html')
+            return render(request, 'web/user-profile.html')
     else:
         # TODO what should we do?:)
         return HttpResponse('the user does not exists')
