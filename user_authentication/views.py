@@ -61,7 +61,16 @@ def sign_in(request):  # the login form is provided for the user
             result = UserManager.login(request, email, password)
             if result == 'Successful Login':  # the user existed in the database with the same password as declared
                 # TODO go to profile
-                return render(request, 'web/pages/blank-page.html')
+                user = UserManager.get_user_by_username(request.user.username)
+                UserManager.login(request, email, password)
+                if user.is_admin():  # the user is the website admin - the admin-panel
+                    # has to be the next page
+                    return HttpResponse('you are logged in as admin')
+                elif UserManager.is_seller(email):  # the user is a seller - the seller-panel
+                    return HttpResponse('you are logged in as seller')
+                else:  # the user is a customer - the homepage
+                    return HttpResponse('you are logged in as a customer')
+                # return render(request, 'web/pages/blank-page.html')
             elif result == 'no such a user':  # the declared username is not created
                 message = 'کاربری با ایمیل وارد‌شده وجود ندارد'
                 messages.append(message)

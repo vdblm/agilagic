@@ -4,8 +4,12 @@ from django.contrib.auth import authenticate, login, logout
 
 
 class WebsiteUser(User):
-    is_admin = models.BooleanField()
+    # is_admin = models.BooleanField()
     credit = models.BigIntegerField(default=0)
+
+    def is_admin(self):
+        return self.is_staff
+
 
 class WebsiteCustomer(WebsiteUser):
     # TODO complete it!
@@ -14,7 +18,7 @@ class WebsiteCustomer(WebsiteUser):
 
 class WebsiteSeller(WebsiteUser):
     company_number = models.BigIntegerField(default=000000)
-    company_name = models.CharField(max_length=20, default='name')
+    company_name = models.CharField(max_length=20, default=0)
 
 
 class UserManager(models.Manager):
@@ -65,6 +69,14 @@ class UserManager(models.Manager):
     @staticmethod
     def get_customer_by_username(username):
         return WebsiteCustomer.objects.get(username=username)
+
+    @staticmethod
+    def is_customer(username):
+        return WebsiteCustomer.objects.filter(username=username).exists()
+
+    @staticmethod
+    def is_seller(username):
+        return WebsiteSeller.objects.filter(username=username).exists()
 
     @staticmethod
     def charge_credit(username, amount):
