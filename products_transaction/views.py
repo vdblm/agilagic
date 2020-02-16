@@ -76,3 +76,13 @@ def proposed_products(request):  # if user is admin then the products that are p
             return user_profile(request)
     else:
         return HttpResponse('The user does not exist')
+
+
+# TODO should be only the admin
+def accept_reject_product(request):
+    # we may have different requests
+    # request_type = 'accept' or 'reject'
+    # product_id = 'product_id'
+    # should make the status as 'U' (unassigned)
+    res = str(request.POST['request_type']) + str(request.POST['product_id'])
+    return HttpResponse(res)

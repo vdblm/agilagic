@@ -100,7 +100,7 @@ def user_profile(request):
         user = UserManager.get_user_by_username(username)
         if user.is_admin():
             products = ProductManager.get_all_pending_products(user.username)
-            return render(request, 'web/admin-profile.html')
+            return render(request, 'web/admin-profile.html', {'products': products})
         elif UserManager.is_seller(user):
             # seller forms
             products = ProductManager.get_proposed_products_of_seller(user.username)

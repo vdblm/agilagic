@@ -7,5 +7,6 @@ urlpatterns = [
     path(r'all_products.html/', views.all_products, name='all_products'),
     path(r'proposed_products.html/', views.proposed_products, name='proposed_products'),  # admin and seller can
     # check products
+    path(r'accept_reject_product.html', views.accept_reject_product, name='accept_reject_product')
 
 ]
