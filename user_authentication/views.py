@@ -19,7 +19,10 @@ def sign_up_customer(request):
             result = user_manager.sign_up_user(is_customer=True, data=form.cleaned_data)
             if result == 'Sign up completed successfully':
                 # TODO go to the customer profile page
-                return render(request, 'web/pages/')
+                username = form.cleaned_data['email']
+                password = form.cleaned_data['password']
+                UserManager.login(request, username, password)
+                return render(request, 'web/')
             else:
                 messages.append('ایمیل وارد شده تکراری است')
 
@@ -39,8 +42,9 @@ def sign_up_seller(request):
             if result == 'Sign up completed successfully':
                 # TODO go to the seller profile page
                 username = form.cleaned_data['email']
-                user = UserManager.get_user_by_username(username)
-                return render(request, 'web/pages/seller-profile.html', {'user': user})
+                password = form.cleaned_data['password']
+                UserManager.login(request, username, password)
+                return render(request, 'web/pages/seller-profile.html')
             else:
                 messages.append('ایمیل وارد شده تکراری است')
         else:
@@ -61,7 +65,13 @@ def sign_in(request):  # the login form is provided for the user
             result = UserManager.login(request, email, password)
             if result == 'Successful Login':  # the user existed in the database with the same password as declared
                 # TODO go to profile
-                return render(request, 'web/pages/blank-page.html')
+                if request.user.is_staff:
+                    page = 'web/admin-profile.html'
+                elif request.user.is_customer:
+                    page = 'web/pages/blank-page.html'
+                else:
+                    page = 'web/seller-profile.html'
+                return render(request, page)
             elif result == 'no such a user':  # the declared username is not created
                 message = 'کاربری با ایمیل وارد‌شده وجود ندارد'
                 messages.append(message)

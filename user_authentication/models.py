@@ -7,6 +7,7 @@ class WebsiteUser(User):
     is_admin = models.BooleanField()
     credit = models.BigIntegerField(default=0)
 
+
 class WebsiteCustomer(WebsiteUser):
     # TODO complete it!
     deliver_address = models.TextField()
