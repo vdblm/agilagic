@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from django.views.decorators.csrf import csrf_exempt
@@ -9,6 +9,7 @@ from .forms import SignInForm, CustomerSignUpForm, SellerSignUpForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 import products_transaction.forms as product_forms
+from products_transaction.views import all_products
 
 
 @csrf_exempt
@@ -87,7 +88,7 @@ def sign_in(request):  # the login form is provided for the user
 @login_required(login_url='sign_in')
 def sign_out(request):
     UserManager.logout(request)
-    return HttpResponse('You signed out successfully')
+    return redirect('all_products')
 
 
 @csrf_exempt
@@ -103,15 +104,30 @@ def user_profile(request):
             return render(request, 'web/admin-profile.html', {'products': products})
         elif UserManager.is_seller(user):
             # seller forms
+            if request.method == 'POST':
+                seller_profile(request)
             products = ProductManager.get_proposed_products_of_seller(user.username)
             new_product_form = product_forms.ProposeProduct()
             return render(request, 'web/seller-profile.html', {'new_product_form': new_product_form,
-                                                               'products': products})
+                                                               'products': products,
+                                                               'user': user})
         else:
             return render(request, 'web/user-profile.html')
     else:
         # TODO what should we do?:)
         return HttpResponse('the user does not exists')
+
+
+def seller_profile(request):
+    # Handle propose contract
+    if 'propose-product' in request.POST:
+
+        form = product_forms.ProposeProduct(request.POST, request.FILES)
+        if form.is_valid():
+            product_manager = ProductManager()
+            result = product_manager.add_product(form.cleaned_data, request)
+            # TODO: the database should add the product to database
+
 
 
 def my_print(text):
