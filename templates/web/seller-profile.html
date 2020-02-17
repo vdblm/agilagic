@@ -97,29 +97,35 @@
                             <li class="connection-list">
                                 <div class="row">
                                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                        <a href="#" class="connection-item"><img src="../../static/web/assets/images/github.png" alt="">
+                                        <a href="#" class="connection-item"><img
+                                                src="../../static/web/assets/images/github.png" alt="">
                                             <span>Github</span></a>
                                     </div>
                                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                        <a href="#" class="connection-item"><img src="../../static/web/assets/images/dribbble.png"
-                                                                                 alt=""> <span>Dribbble</span></a>
+                                        <a href="#" class="connection-item"><img
+                                                src="../../static/web/assets/images/dribbble.png"
+                                                alt=""> <span>Dribbble</span></a>
                                     </div>
                                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                        <a href="#" class="connection-item"><img src="../../static/web/assets/images/dropbox.png" alt="">
+                                        <a href="#" class="connection-item"><img
+                                                src="../../static/web/assets/images/dropbox.png" alt="">
                                             <span>Dropbox</span></a>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                        <a href="#" class="connection-item"><img src="../../static/web/assets/images/bitbucket.png"
-                                                                                 alt=""> <span>Bitbucket</span></a>
+                                        <a href="#" class="connection-item"><img
+                                                src="../../static/web/assets/images/bitbucket.png"
+                                                alt=""> <span>Bitbucket</span></a>
                                     </div>
                                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                        <a href="#" class="connection-item"><img src="../../static/web/assets/images/mail_chimp.png"
-                                                                                 alt=""><span>Mail chimp</span></a>
+                                        <a href="#" class="connection-item"><img
+                                                src="../../static/web/assets/images/mail_chimp.png"
+                                                alt=""><span>Mail chimp</span></a>
                                     </div>
                                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                        <a href="#" class="connection-item"><img src="../../static/web/assets/images/slack.png" alt="">
+                                        <a href="#" class="connection-item"><img
+                                                src="../../static/web/assets/images/slack.png" alt="">
                                             <span>Slack</span></a>
                                     </div>
                                 </div>
@@ -206,7 +212,7 @@
                         <div class="influence-profile-content pills-regular">
                             <ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="pills-campaign-tab" data-toggle="pill"
+                                    <a class="nav-link" id="pills-campaign-tab" data-toggle="pill"
                                        href="#pills-campaign" role="tab" aria-controls="pills-campaign"
                                        aria-selected="false">کمپین ها</a>
                                 </li>
@@ -216,7 +222,7 @@
                                        aria-selected="false">تبلیغات جدید</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="pills-review-tab" data-toggle="pill"
+                                    <a class="nav-link active" id="pills-review-tab" data-toggle="pill"
                                        href="#pills-review"
                                        role="tab" aria-controls="pills-review" aria-selected="false">ثبت کالای جدید</a>
                                 </li>
@@ -277,7 +283,7 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade show active" id="pills-campaign" role="tabpanel"
+                                <div class="tab-pane fade" id="pills-campaign" role="tabpanel"
                                      aria-labelledby="pills-campaign-tab">
 
                                     <div class="section-block">
@@ -289,7 +295,8 @@
                                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                                     <div class="media influencer-profile-data d-flex align-items-center p-2">
                                                         <div class="mr-4">
-                                                            <img src="../../static/web/assets/images/slack.png" alt="User Avatar"
+                                                            <img src="../../static/web/assets/images/slack.png"
+                                                                 alt="User Avatar"
                                                                  class="user-avatar-lg">
                                                         </div>
                                                         <div class="media-body ">
@@ -454,7 +461,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="pills-review" role="tabpanel"
+                                <div class="tab-pane fade show active" id="pills-review" role="tabpanel"
                                      aria-labelledby="pills-review-tab">
                                     <!-- ============================================================== -->
                                     <!-- basic form  -->
@@ -467,47 +474,57 @@
                                             <div class="card">
                                                 <h5 class="card-header">ثبت کالای جدید</h5>
                                                 <div class="card-body">
-                                                    <form dir="rtl" role="form"
-                                                          action="{% url 'user_profile' %}"
-                                                          method="post"
-                                                          enctype="multipart/form-data" novalidate>
-                                                        {% csrf_token %}
-                                                        {% if new_product_form.errors %}
-                                                            {% for field in new_product_form %}
-                                                                {% for error in field.errors %}
+                                                    {% csrf_token %}
+                                                    {% if new_product_form %}
+                                                        <form dir="rtl" role="form"
+                                                              action="{% url 'user_profile' %}"
+                                                              method="post"
+                                                              enctype="multipart/form-data" novalidate>
+                                                            {% if new_product_form.errors %}
+                                                                {% for field in new_product_form %}
+                                                                    {% for error in field.errors %}
+                                                                        <div class="alert alert-danger">
+                                                                            <strong>{{ error|escape }}</strong>
+                                                                        </div>
+                                                                    {% endfor %}
+                                                                {% endfor %}
+                                                                {% for error in new_product_form.non_field_errors %}
                                                                     <div class="alert alert-danger">
                                                                         <strong>{{ error|escape }}</strong>
                                                                     </div>
                                                                 {% endfor %}
-                                                            {% endfor %}
-                                                            {% for error in new_product_form.non_field_errors %}
-                                                                <div class="alert alert-danger">
-                                                                    <strong>{{ error|escape }}</strong>
+                                                            {% endif %}
+                                                            {% for field in new_product_form %}
+                                                                <div class="form-group">
+                                                                    <label class="=col-form-lable"> {{ field.label }} </label>
+                                                                    <input class="form-control form-control-lg"
+                                                                           type="{{ field.subwidgets.0.data.type }}"
+                                                                           name="{{ field.name }}" required=""
+                                                                           placeholder=""
+                                                                           autocomplete="off">
                                                                 </div>
                                                             {% endfor %}
-                                                        {% endif %}
-                                                        {% for field in new_product_form %}
-                                                            <div class="form-group">
-                                                                <label class="=col-form-lable"> {{ field.label }} </label>
-                                                                <input class="form-control form-control-lg"
-                                                                       type="{{ field.subwidgets.0.data.type }}"
-                                                                       name="{{ field.name }}" required=""
-                                                                       placeholder=""
-                                                                       autocomplete="off">
-                                                            </div>
-                                                        {% endfor %}
-                                                        <div class="card-body border-top">
                                                             <div class="card-body border-top">
-                                                                <div class="form-group pt-2">
-                                                                    <button class="btn btn-block btn-primary"
-                                                                            href="#"
-                                                                            name="propose-product"
-                                                                            type="submit">ثبت کالا
-                                                                    </button>
+                                                                <div class="card-body border-top">
+                                                                    <div class="form-group pt-2">
+                                                                        <button class="btn btn-block btn-primary"
+                                                                                href="#"
+                                                                                name="propose-product"
+                                                                                type="submit">ثبت کالا
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </form>
+                                                        </form>
+                                                    {% else %}
+                                                        {% if message %}
+
+                                                            <div class="alert alert-danger">
+                                                                <strong>{{ message|safe }}</strong>
+                                                            </div>
+
+                                                        {% endif %}
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                         </div>

@@ -120,7 +120,15 @@ def user_profile(request):
             if Contract.objects.filter(contract_seller=user).exists():
                 new_contract_form = None
                 contract = Contract.objects.get(contract_seller=user)
+            message = ""
+            if contract is None:
+                message = "هنوز قراردادی تنظیم نکرده‌اید"
+                new_product_form = None
+            elif contract.status != 'S':
+                message = 'قراردادتان تایید نشده است'
+                new_product_form = None
             return render(request, 'web/seller-profile.html', {'new_product_form': new_product_form,
+                                                               'message': message,
                                                                'new_contract_form': new_contract_form,
                                                                'products': products,
                                                                'user': user,
