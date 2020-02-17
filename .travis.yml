@@ -1,20 +1,11 @@
-sudo: required
 language: python
-addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
 python:
 - '3.6'
 env: "-DJANGO=3.0.3"
 install:
 - pip install -r requirements.txt
-before_script:
-- export DJANGO_WEB_DRIVER_CLASS=Chrome
 script:
-- python manage.py test
+#- python manage.py test
 deploy:
   provider: heroku
   api_key:
