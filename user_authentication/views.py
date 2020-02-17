@@ -134,8 +134,11 @@ def user_profile(request):
                                                                'user': user,
                                                                'contract': contract})
         else:
-            basket = product_models.ProductBasketManager.get_basket_for_user(user)
-            basket_products = basket.products.all()
+            if product_models.ProductBasketManager.check_existence_of_basket_for_user(user):
+                basket = product_models.ProductBasketManager.get_basket_for_user(user)
+                basket_products = basket.products.all()
+            else:
+                basket_products = None
             return render(request, 'web/user-profile.html', {'user': user,
                                                              'basket_products': basket_products})
     else:
