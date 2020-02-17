@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import selenium
+
+from selenium import webdriver
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -130,3 +133,11 @@ if 'DATABASE_URL' in os.environ:
     import dj_database_url
 
     DATABASES = {'default': dj_database_url.config()}
+
+os.environ.setdefault("DJANGO_WEB_DRIVER_CLASS", "Chrome")
+if os.environ.get('DJANGO_WEB_DRIVER_CLASS') == "Chrome":
+    WEB_DRIVER_CLASS = webdriver.Chrome
+elif os.environ.get('DJANGO_WEB_DRIVER_CLASS') == "Firefox":
+    WEB_DRIVER_CLASS = webdriver.Firefox
+else:
+    raise ValueError(str(os.environ.get('DJANGO_WEB_DRIVER_CLASS')) + str(' is not a valid web driver.'))

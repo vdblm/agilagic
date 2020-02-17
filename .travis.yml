@@ -5,8 +5,23 @@ env: "-DJANGO=3.0.3"
 install:
 - pip install -r requirements.txt
 script:
-- python manage.py migrate
-- python manage.py runserver
+  - sudo apt-get -q update
+  - suod apt-get -yq install firefox-esr
+  - sudo wget -O FirefoxSetup.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US"
+  - mkdir /opt/firefox
+  - sudo tar xjf FirefoxSetup.tar.bz2 -C /opt/firefox/
+  - sudo mv /usr/lib/firefox-esr/firefox-esr /usr/lib/firefox-esr/firefox-esr_orig
+  - sudo ln -s /opt/firefox/firefox/firefox /usr/lib/firefox-esr/firefox-esr
+  - sudo apt-get -yq install Xvfb
+  - initial_dir=`pwd`
+  - cd /usr/bin
+  - sudo wget https://github.com/mozilla/geckodriver/releases/download/v0.20.1/geckodriver-v0.20.1-linux64.tar.gz
+  - sudo tar -xvzf geckodriver*
+  - sudo chmod +x geckodriver
+  - sudo cd $initial_dir
+  - sudo export DISPLAY=:1
+  - sudo export DJANGO_WEB_DRIVER_CLASS=Firefox
+  - python manage.py test
 deploy:
   provider: heroku
   api_key:
