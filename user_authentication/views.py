@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 
 import products_transaction.forms as product_forms
 from products_transaction.views import all_products
+import products_transaction.models as product_models
 
 
 @csrf_exempt
@@ -64,7 +65,6 @@ def sign_in(request):  # the login form is provided for the user
     messages = []
     if request.method == 'POST':
         form = SignInForm(request.POST)
-        my_print(request.POST)
         if form.is_valid():
             email, password = form.cleaned_data['email'], form.cleaned_data['password']
             result = UserManager.login(request, email, password)
@@ -88,7 +88,7 @@ def sign_in(request):  # the login form is provided for the user
 @login_required(login_url='sign_in')
 def sign_out(request):
     UserManager.logout(request)
-    return redirect('all_products')
+    return redirect(all_products)
 
 
 @csrf_exempt
@@ -103,7 +103,8 @@ def user_profile(request):
             products = ProductManager.get_all_pending_products(user.username)
             if request.method == 'POST':
                 admin_profile(request)
-            return render(request, 'web/admin-profile.html', {'products': products})
+            return render(request, 'web/admin-profile.html', {'products': products,
+                                                              'user': user})
         elif UserManager.is_seller(user):
             # seller forms
             if request.method == 'POST':
@@ -114,7 +115,10 @@ def user_profile(request):
                                                                'products': products,
                                                                'user': user})
         else:
-            return render(request, 'web/user-profile.html')
+            basket = product_models.ProductBasketManager.get_basket_for_user(user)
+            basket_products = basket.products.all()
+            return render(request, 'web/user-profile.html', {'user': user,
+                                                             'basket_products': basket_products})
     else:
         # TODO what should we do?:)
         return HttpResponse('the user does not exists')
@@ -144,9 +148,3 @@ def admin_profile(request):
 
 def error404_view(request, exception):
     return render(request, 'web/pages/404-page.html')
-
-
-def my_print(text):
-    print('################################################################################')
-    print(text)
-    print('################################################################################')

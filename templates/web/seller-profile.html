@@ -24,7 +24,12 @@
     <!-- ============================================================== -->
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <a class="navbar-brand">Agilagic</a>
+            <a class="navbar-brand"
+               href="{% url 'home' %}">Agilagic</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
                     {#                        <li class="nav-item">#}
@@ -126,17 +131,29 @@
                     </li>
                     <li class="nav-item dropdown nav-user">
                         <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false"><img src="assets/images/avatar-1.jpg" alt=""
-                                                                           class="user-avatar-md rounded-circle"></a>
+                           aria-haspopup="true" aria-expanded="false"><img
+                                src="../../static/web/assets/images/avatar-1.jpg" name="vahid_img" alt=""
+                                class="user-avatar-md rounded-circle"></a>
                         <div class="dropdown-menu dropdown-menu-right nav-user-dropdown"
                              aria-labelledby="navbarDropdownMenuLink2">
-                            <div class="nav-user-info">
-                                <h5 class="mb-0 text-white nav-user-name">John Abraham </h5>
-                                <span class="status"></span><span class="ml-2">Available</span>
-                            </div>
-                            <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                            {% if user is not None %}
+                                <div class="nav-user-info">
+                                    <h5 class="mb-0 text-white nav-user-name">{{ user.first_name }} سلام </h5>
+                                </div>
+                                <a class="dropdown-item" href="{% url 'user_profile' %}"><i
+                                        class="fas fa-user mr-2"></i>پنل کاربری</a>
+                                {#                            <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>#}
+                                <a class="dropdown-item" name="sign_out_button" href="{% url 'sign_out' %}"><i
+                                        class="fas fa-power-off mr-2"></i>خروج</a>
+                            {% else %}
+                                <a class="dropdown-item" href="{% url 'sign_in' %}"><i
+                                        class="fas fa-user mr-2"></i>ورود</a>
+                                <a class="dropdown-item" href="{% url 'customer_sign_up' %}"><i
+                                        class="fas fa-power-off mr-2"></i>ثبت نام مشتری</a>
+                                <a class="dropdown-item" href="{% url 'seller_sign_up' %}"><i
+                                        class="fas fa-power-off mr-2"></i>ثبت نام فروشنده</a>
+                            {% endif %}
+
                         </div>
                     </li>
                 </ul>

@@ -37,7 +37,7 @@ class ProductBasket(models.Model):
         pass
 
     def add_product(self, product):  # this method gets a product and adds it to the list of products
-        pass
+        self.products.add(product)
 
 
 class ProductManager(models.Manager):
@@ -87,24 +87,16 @@ class ProductManager(models.Manager):
 class ProductBasketManager(models.Manager):
 
     @staticmethod
-    def check_existence_of_basket_for_user(username):  # this method gets a username and checks if a ProductBasket has
+    def check_existence_of_basket_for_user(user):  # this method gets a username and checks if a ProductBasket has
         # been initialized for the user
-        user_manager = UserManager()
-        if user_manager.is_customer(username):
-            user = user_manager.get_customer_by_username(username)
-            return ProductBasket.objects.filter(owner=user).exists()
-        else:
-            return False
+        return ProductBasket.objects.filter(owner=user).exists()
 
     @staticmethod
-    def get_basket_for_user(username):  # this method gives the basket of a user
-        user_manager = UserManager()
-        user = user_manager.get_customer_by_username(username)
-        return ProductBasket.objects.get(owner=user)[0]
+    def get_basket_for_user(user):  # this method gives the basket of a user
+        return ProductBasket.objects.get(owner=user)
 
     @staticmethod
-    def add_basket(username):  # this method initializes a basket for the user given his username
-        user_manager = UserManager()
-        user = user_manager.get_customer_by_username(username)
+    def add_basket(user):  # this method initializes a basket for the user given his username
         basket = ProductBasket(owner=user)
+        basket.save()
         return basket

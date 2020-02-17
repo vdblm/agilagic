@@ -22,9 +22,8 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'', include('user_authentication.urls')),
-    path('web/', include('web.urls')),
-    path('transaction/', include('financial_transaction.urls')),
-    path('product/', include('products_transaction.urls'))
+    path(r'', include('financial_transaction.urls')),
+    path(r'', include('products_transaction.urls'))
 ]
 
 urlpatterns += staticfiles_urlpatterns()
