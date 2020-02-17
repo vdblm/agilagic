@@ -3,6 +3,7 @@ from django.http import HttpResponse
 
 from django.views.decorators.csrf import csrf_exempt
 
+from contract_handler.models import Contract, ContractManager
 from products_transaction.models import ProductManager
 from .models import UserManager, WebsiteSeller
 from .forms import SignInForm, CustomerSignUpForm, SellerSignUpForm
@@ -11,6 +12,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 import products_transaction.forms as product_forms
 from products_transaction.views import all_products
 import products_transaction.models as product_models
+import contract_handler.forms as contract_forms
 
 
 @csrf_exempt
@@ -101,19 +103,28 @@ def user_profile(request):
         user = UserManager.get_user_by_username(username)
         if user.is_admin():
             products = ProductManager.get_all_pending_products(user.username)
+            contracts = ContractManager.get_all_pending_contracts(user.username)
             if request.method == 'POST':
                 admin_profile(request)
             return render(request, 'web/admin-profile.html', {'products': products,
-                                                              'user': user})
+                                                              'user': user,
+                                                              'contracts': contracts})
         elif UserManager.is_seller(user):
             # seller forms
             if request.method == 'POST':
                 seller_profile(request)
             products = ProductManager.get_proposed_products_of_seller(user.username)
             new_product_form = product_forms.ProposeProduct()
+            new_contract_form = contract_forms.ProposeContract()
+            contract = None
+            if Contract.objects.filter(contract_seller=user).exists():
+                new_contract_form = None
+                contract = Contract.objects.get(contract_seller=user)
             return render(request, 'web/seller-profile.html', {'new_product_form': new_product_form,
+                                                               'new_contract_form': new_contract_form,
                                                                'products': products,
-                                                               'user': user})
+                                                               'user': user,
+                                                               'contract': contract})
         else:
             basket = product_models.ProductBasketManager.get_basket_for_user(user)
             basket_products = basket.products.all()
@@ -133,6 +144,14 @@ def seller_profile(request):
             product_manager = ProductManager()
             result = product_manager.add_product(form.cleaned_data, request)
             # TODO: the database should add the product to database
+    elif 'propose-contract' in request.POST:
+        propose_contract = contract_forms.ProposeContract(request.POST)
+        if propose_contract.is_valid():
+            description = propose_contract.cleaned_data['description']
+            percentage = propose_contract.cleaned_data['percentage']
+            seller = UserManager.get_seller_by_username(request.user.username)
+            contract = Contract(description=description, percentage=percentage, status='P', contract_seller=seller)
+            contract.save()
 
 
 def admin_profile(request):
@@ -144,6 +163,14 @@ def admin_profile(request):
         else:
             product.status = 'U'
         product.save()
+    elif 'accept-contract' in request.POST or 'reject-contract' in request.POST:
+        contract_id = request.POST['contract_id']
+        contract = ContractManager.get_contract(contract_id)
+        if 'accept-contract' in request.POST:
+            contract.status = 'S'
+        else:
+            contract.status = 'U'
+        contract.save()
 
 
 def error404_view(request, exception):

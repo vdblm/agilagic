@@ -4,7 +4,7 @@ from django import forms
 class ProposeContract(forms.Form):
     percentage = forms.IntegerField(
         required=True,
-        label='تعداد موجودی',
+        label='درصد سود دارنده‌ی سایت',
         error_messages={'required': 'لطفا درصد تقسیم سود را وارد کنید'},
         min_value=0,
         max_value=100
